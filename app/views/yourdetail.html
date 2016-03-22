@@ -1,0 +1,39 @@
+<div class="passengerDetails">
+    <div ng-if="firstSection" class="firstSection">
+        <form name="form" novalidate>
+            <div class="yourdetail-wrapper">
+                <div class="paymentTitle">
+                    <span>1</span>
+                    <h4>Your Details</h4>
+                </div>
+                <div class="yourdetail-left">
+                    <input class="detials" placeholder="Email Address" type="email" name="email" ng-model="customerDetail.email" ng-required="true" ng-keypress="checkKeyPressed($event)" id="emailInput">
+                    <input class="detials" placeholder="Apply coupon code here" type="5s6s5s5s5" name="coupon" required>
+                </div>
+                <div class="yourdetail-right">
+                    <input class="detials" placeholder="Mobile No" type="Credit / Debit Card No" name="mobile" ng-model="customerDetail.mobile" ng-required="true" id="phoneInput" ng-keypress="checkKeyPressed($event)">
+                    <button type="submit" class="action01" ng-click="confirmBooking()" >Confirm My Booking</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div ng-if="!firstSection">
+        <div class="yourInfo">
+            <img src="images/success-tick.png" alt="Succes Tick">
+            <h3>Your Details</h3>
+            <div class="block">
+                <p>Email Address</p>
+                <h4>{{customerDetail.email}}</h4>
+            </div>
+            <div class="block">
+                <p>Phone No</p>
+                <h4>{{customerDetail.mobile}}</h4>
+            </div>
+        </div>
+        <!--End Your Info-->
+
+
+
+        <div class="edit" ng-click="edit();"><a href class="blueLink">Edit</a></div>
+    </div>
+</div>
