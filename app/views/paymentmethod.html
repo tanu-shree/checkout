@@ -43,6 +43,7 @@
 
                 <div class="debitInfo" ng-show="checkout.details.savedCards.length==0||cardInput">
                     <input class="cardno" id="cardno" placeholder="Credit / Debit Card No" type="Credit / Debit Card No" name="cardno" ng-model="ccinfo.securityCode" ng-required="isSelected('debit')" data-ng-pattern="/^[0-9]+$/" data-credit-card-type  data-ng-minlength="10" maxlength="19" >
+                    <span class="cardType"><img src="images/{{ccinfo.type}}.png"/></span>
                    <!-- <div ng-messages="tabForm.cardno.$error" ng-if="tabForm.cardno.$dirty">
                         <p ng-message="required" class="errMsg">This is required</p>
                         <p ng-show="tabForm.cardno.$error.minlength">Credit card must be 15-19 digits</p>

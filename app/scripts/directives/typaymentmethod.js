@@ -60,7 +60,7 @@ angular.module('newappApp')
             $scope.currentYear = new Date().getFullYear();
             $scope.currentMonth = new Date().getMonth() + 1;
             $scope.months = $locale.DATETIME_FORMATS.MONTH;
-            $scope.ccinfo = {type:undefined};
+            $scope.ccinfo = {type:undefined,cardImage:undefined};
             
             $scope.tabDetails={'debit':'Debit / Credit Card','netbank':'Net Banking','wallet':'Walllet','othercard':'Other Payment'};
             $scope.data = { repeatSelect: '' };

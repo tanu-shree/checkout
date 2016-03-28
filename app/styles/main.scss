@@ -506,8 +506,13 @@ body {
 	.cardno {
 		width: 100%;
 		padding: 25px 0;
-		background: $url_15 no-repeat center right;
+		//background: $url_15 no-repeat center right;
 	}
+    .cardType{
+        position:absolute;
+        margin-left:64%;
+        top:50%;
+    }
 	.debitUser {
 		width: 100%;
 		padding: 22px 0;

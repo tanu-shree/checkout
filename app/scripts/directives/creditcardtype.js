@@ -13,7 +13,7 @@ angular.module('newappApp')
         , link: function(scope, elm, attrs, ctrl){
             ctrl.$parsers.unshift(function(value){
                 console.log(value);
-              scope.ccinfo.type =
+               scope.ccinfo.type =
                 (/^5[1-5]/.test(value)) ? 'mast_cc'//"mastercard"
                 : (/4[0-9]{12}(?:[0-9]{3})/.test(value)) ? 'visa_cc'//"visa"
                 : (/^3[47]/.test(value)) ?'amex_cc' //'amex'
@@ -23,11 +23,10 @@ angular.module('newappApp')
                 : (/^(2014)|^(2149)/.test(value)) ? 'dinec_cc'//'Diners Club enRoute'
                 : (/^36/.test(value)) ? 'dinec_cc'//'Diners Club International'
                 : undefined
+              
                ctrl.$setValidity('invalid',!!scope.ccinfo.type);
                 var clean = value.replace( /[^0-9]+/g, '');
-                clean=" ";
-                clean=clean.concat(value);
-                console.log(clean.length);
+                
                 //clean=clean+' ';
                 //console.log(clean+" ");
                 ctrl.$setViewValue(clean);
