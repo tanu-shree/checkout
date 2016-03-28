@@ -1,6 +1,6 @@
 <div class="passengerDetails">
     <div ng-if="firstSection" class="firstSection">
-        <form name="form" novalidate>
+        <ng-form name="detailForm">
             <div class="yourdetail-wrapper">
                 <div class="paymentTitle">
                     <span>1</span>
@@ -8,11 +8,18 @@
                 </div>
                 <div class="yourdetail-left">
                     <input class="detials" placeholder="Email Address" type="email" name="email" ng-model="customerDetail.email" ng-required="true" ng-keypress="checkKeyPressed($event)" id="emailInput">
+                     <ul ng-show="detailForm.submitAttempt && !detailForm.$valid">
+                        <li ng-show="detailForm.email.$error.required" class="errMsg">Email required</li>
+                    </ul>
                     <input class="detials" placeholder="Apply coupon code here" type="5s6s5s5s5" name="coupon" required>
                 </div>
                 <div class="yourdetail-right">
-                    <input class="detials" placeholder="Mobile No" type="Credit / Debit Card No" name="mobile" ng-model="customerDetail.mobile" ng-required="true" id="phoneInput" ng-keypress="checkKeyPressed($event)">
-                    <button type="submit" class="action01" ng-click="confirmBooking()" >Confirm My Booking</button>
+                    <input class="detials" placeholder="Mobile No" type="Credit / Debit Card No" name="mobile" ng-model="customerDetail.mobile" ng-required="true" id="phoneInput" ng-keypress="checkKeyPressed($event)" ng-minlength="10">
+                    <ul ng-show="detailForm.submitAttempt && !detailForm.$valid">
+                        <li ng-show="detailForm.mobile.$error.required" class="errMsg">Mobile no required</li>
+                        <li ng-show="detailForm.mobile.$error.minlength" class="errMsg">should be 10 digit</li>
+                    </ul>
+                    <button type="submit" class="action01" ng-click="detailForm.submitAttempt=true;confirmBooking()" >Confirm My Booking</button>
                 </div>
             </div>
         </form>

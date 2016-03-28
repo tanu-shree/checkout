@@ -9,13 +9,13 @@
  */
 var url = "http://dev.travelyaari.com";
 angular.module('newappApp')
-  .controller('CheckoutCtrl', ['$scope', '$location', 'CheckoutDetailService', 'checkoutDetailData', function ($scope, $location, CheckoutDetailService, checkoutDetailData) {
+  .controller('CheckoutCtrl', ['$scope', '$location', 'CheckoutService', 'checkoutDetailData','checkoutConstant', function ($scope, $location, CheckoutService,  checkoutDetailData,checkoutConstant) {
     
     $scope.tabInfo = false;
     $scope.checkoutDetailsData = checkoutDetailData;
     $scope.customerDetail = {email:"",mobile:""};
     $scope.isCheckedReliability = true;
-    CheckoutDetailService.getCheckoutInfo().then(function (response) {
+    CheckoutService.getCheckoutInfo().then(function (response) {
         checkoutDetailData.details = response.data;
         console.log(checkoutDetailData);
 

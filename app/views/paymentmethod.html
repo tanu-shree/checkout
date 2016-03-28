@@ -42,16 +42,35 @@
                 <!--End Trust Part-->
 
                 <div class="debitInfo" ng-show="checkout.details.savedCards.length==0||cardInput">
-                    <input class="cardno" placeholder="Credit / Debit Card No" type="Credit / Debit Card No" name="cardno" ng-model="ccinfo.securityCode" ng-required="isSelected('debit')" data-credit-card-type data-ng-pattern="/^[0-9]+$/" data-ng-minlength="10" maxlength="19">
-                    <!--<div ng-messages="tabForm.cardno.$error" ng-if="tabForm.cardno.$dirty">
+                    <input class="cardno" id="cardno" placeholder="Credit / Debit Card No" type="Credit / Debit Card No" name="cardno" ng-model="ccinfo.securityCode" ng-required="isSelected('debit')" data-ng-pattern="/^[0-9]+$/" data-credit-card-type  data-ng-minlength="10" maxlength="19" >
+                   <!-- <div ng-messages="tabForm.cardno.$error" ng-if="tabForm.cardno.$dirty">
                         <p ng-message="required" class="errMsg">This is required</p>
+                        <p ng-show="tabForm.cardno.$error.minlength">Credit card must be 15-19 digits</p>
                     </div>-->
+                    <ul ng-show="tabForm.submitAttempt && !tabForm.$valid">
+                        <li ng-show="tabForm.cardno.$error.minlength" class="errMsg">Credit card must be 15-19 digits</li>
+                        <li ng-show="tabForm.cardno.$error.pattern" class="errMsg">Credit card must consist of only numbers</li>
+                        <li ng-show="tabForm.cardno.$error.invalid" class="errMsg">Credit card must be a valid Amex, Visa, Discover, or Master Card</li>
+                        <li ng-show="tabForm.cardno.$error.required" class="errMsg">Credit card required</li>
+                    </ul>
                     <input class="debitUser" placeholder="Credit / Debit Card Name" type="5s6s5s5s5" ng-required="isSelected('debit')" name="debitUser" ng-model="ccinfo.name">
+                    <ul ng-show="tabForm.submitAttempt && !tabForm.$valid">
+                        <li ng-show="tabForm.debitUser.$error.required" class="errMsg">Name required</li>
+                    </ul>
                     
-                    <input class="debitMonth" placeholder="MM" type="5s6s5s5s5" ng-required="isSelected('debit')" name="month" ng-model="ccinfo.month"  data-card-expiration ng-pattern="/^[0-5]+$/" ng-maxlength="2">
+                    <input class="debitMonth" id="debitMonth" placeholder="MM" type="5s6s5s5s5" ng-required="isSelected('debit')" name="debitMonth" ng-model="ccinfo.month"  data-card-expiration ng-pattern="/^[0-1]+[0-9]+$/" ng-maxlength="2" ng-keypress="checkKeyPressed($event)">
                     <div class="debitsep"><img src="images/debt-sep.png" alt="Sep"></div>
-                    <input class="debitMonth" placeholder="YY" type="5s6s5s5s5" name="debitYear" ng-required="isSelected('debit')"  ng-model="ccinfo.year">
-                    <input class="debitCvv" placeholder="CVV" type="5s6s5s5s5" ng-required="isSelected('debit')" name="debitCVV" ng-model="ccinfo.cvv">
+                    <input class="debitMonth" id="debitYear" placeholder="YY" type="5s6s5s5s5" name="debitYear" ng-required="isSelected('debit')"  ng-model="ccinfo.year" ng-keypress="checkKeyPressed($event)">
+                    <input class="debitCvv" id="debitCVV" placeholder="CVV" type="5s6s5s5s5" ng-required="isSelected('debit')" name="debitCVV" ng-model="ccinfo.cvv" ng-minlength="3" ng-keypress="checkKeyPressed($event)">
+                    <ul ng-show="tabForm.submitAttempt && !tabForm.$valid" style="float:right;width:35%;color:red;">
+                        <li ng-show="tabForm.debitCVV.$error.required"  >CVV required</li>
+                        <li ng-show="tabForm.debitCVV.$error.minlength"  >min length 3</li>
+                    </ul>
+                    <ul ng-show="tabForm.submitAttempt && !tabForm.$valid" style="width:35%;float:left;color:red;">
+                        <li ng-show="tabForm.debitYear.$error.required">Expiration year required</li>
+                        <li ng-show="tabForm.debitMonth.$error.invalid">Provided expiration date is invalid</li>
+                    </ul>
+                   
                     <div class="savethiscard">
                         <div class="checkbox_wrapper">
                             <input type="checkbox" checked ng-model="isCheckedSaveCard" />
@@ -173,7 +192,7 @@
 
             </div>
             <div class="action-wrapper">
-                <button type="submit" class="action" ng-click="confirmBooking();" ng-disabled="tabForm.$invalid">Confirm My Booking</button>
+                <button type="submit" class="action" ng-click="tabForm.submitAttempt=true;confirmBooking()" >Confirm My Booking</button>
             </div>
             <div class="termsconditions">
                 <div class="termsLeft">I Agree to <a href class="blackLink">Terms & Conditions</a></div>

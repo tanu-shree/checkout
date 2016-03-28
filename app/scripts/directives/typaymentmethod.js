@@ -7,7 +7,7 @@
  * # tyPaymentMethod
  */
 angular.module('newappApp')
-    .directive('tyPaymentMethod',  ['BookingService','PayPalAmountService','JusPayApplicableService','PaymentGatewayService','GetOrderStatusService','UpdateOrderService', 'CreateOrderService','DeleteCardService', 'NetBank', 'Wallet', 'CashCard','$locale', function (BookingService, PayPalAmountService, JusPayApplicableService, PaymentGatewayService, GetOrderStatusService, UpdateOrderService, CreateOrderService,DeleteCardService, NetBank, Wallet, CashCard,$locale) {
+    .directive('tyPaymentMethod',  ['CheckoutService', 'NetBank', 'Wallet', 'CashCard','$locale', function (CheckoutService, NetBank, Wallet, CashCard,$locale) {
       return {
         scope: {
             checkout: '=',
@@ -135,11 +135,12 @@ angular.module('newappApp')
             }
 
             $scope.confirmBooking = function () {
-                
-                console.log("confirm booking clicked");
-                var postData = getPostData();
-                var browser = detectBrowser();
-                executeBooking(postData,browser);
+                if($scope.tabForm.$valid){
+                    console.log("confirm booking clicked");
+                    var postData = getPostData();
+                    var browser = detectBrowser();
+                    executeBooking(postData,browser);
+                }
             }
 
             $scope.selectBank_all = function (bank) {
@@ -197,9 +198,32 @@ angular.module('newappApp')
                 setPayment(ty.co.options.debit_card, walProvider);
             };
             
+            var specialKeys = new Array();
+            specialKeys.push(8); //Backspace
+            specialKeys.push(9); //Tab
+            specialKeys.push(46); //Delete
+            specialKeys.push(36); //Home
+            specialKeys.push(35); //End
+            specialKeys.push(37); //Left
+            specialKeys.push(39); //Right
+
+            $scope.checkKeyPressed = function (e) {
+
+                
+               if (e.target.id == "debitMonth" || e.target.id == "debitYear" || e.target.id=="cardno" || e.target.id=="debitCVV") {
+                   
+                    var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+                    var ret = ((keyCode >= 48 && keyCode <= 57) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+                    if (ret == false) {
+                        e.preventDefault();
+                    }
+                }
+
+            };
+            
 
             function getPayPalAmount() {
-                PayPalAmountService.getAmount().then(function (response) {
+                CheckoutService.getPayPalAmount().then(function (response) {
                     if (response.success) {
                         $scope.paypalAmount = response.data.usd;
                     }
@@ -324,7 +348,7 @@ angular.module('newappApp')
                 else{
                     apiurl="/api/transaction/checkout/";
                 }
-                BookingService.execute(apiurl, $scope.checkout.details.orderToken,  $scope.method, $scope.provider, browser, postData).then(function (response) {
+                CheckoutService.book(apiurl, $scope.checkout.details.orderToken,  $scope.method, $scope.provider, browser, postData).then(function (response) {
                     console.log(response);
                     $scope.BookingResponse = response;
                     checkForJuspay();
@@ -334,7 +358,7 @@ angular.module('newappApp')
 
             function checkForJuspay() {
                 
-                JusPayApplicableService.getApplicability().then(function (response) {
+                CheckoutService.getJusPayApplicability().then(function (response) {
                     console.log("jus pay appl");
                     console.log(response);
                     if (response.data.applicable) {
@@ -368,7 +392,7 @@ angular.module('newappApp')
                 return -1;
             }
             function getOrderStatus(){
-                GetOrderStatusService.execute($scope.BookingResponse.data.data.pgData.params.txnid).then(function(response){
+                CheckoutService.getOrderStatus($scope.BookingResponse.data.data.pgData.params.txnid).then(function(response){
                     if(response.data.merchant_id){
                         updateOrder();
                     }
@@ -389,7 +413,7 @@ angular.module('newappApp')
                     orderid:$scope.checkout.detail.pgData.params.txnid,
                     fin_amount:$scope.checkout.detail.pgData.params.amount };
                 
-                UpdateOrderService.execute(data).then(function(response){
+                CheckoutService.updateOrder(data).then(function(response){
                     if(response.data.success){
                         updateJuspayForm(ty.co.merchantID,payment_method,response.data.order_id);
                         addJuspaySubmitListener();
@@ -494,7 +518,7 @@ angular.module('newappApp')
                          fin_amount:$scope.BookingResponse.data.data.pgData.params.amount,
                          calling_device:'desktop'};
                 
-                CreateOrderService.execute(data).then(function(response){
+                CheckoutService.createOrder(data).then(function(response){
                     console.log("create service response");
                     console.log(response);
                     if(response.data.success){

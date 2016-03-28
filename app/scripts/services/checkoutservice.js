@@ -7,12 +7,12 @@
  * # checkoutservice
  * Service in the newappApp.
  */
-angular.module('newappApp')
+/*angular.module('newappApp')
   .service('checkoutservice', function () {
     // AngularJS will instantiate a singleton by calling "new" on this function
-  });
+  });*/
 
-angular.module('newappApp').factory('CheckoutDetailService', ['$http', '$q', function ($http, $q) {
+angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function ($http, $q) {
         var details = {
             getCheckoutInfo: function () {
                 var deferred = $q.defer();
@@ -25,16 +25,8 @@ angular.module('newappApp').factory('CheckoutDetailService', ['$http', '$q', fun
                 });
 
                 return deferred.promise;
-            }
-        };
-
-        return details;
-}]);
-
-
-angular.module('newappApp').factory('BookingService', ['$http', '$q', function ($http, $q) {
-    var booking = {
-        execute: function (apiurl,orderToken,method,provider,browser,postData) {
+            },
+            book: function (apiurl,orderToken,method,provider,browser,postData) {
             var deferred = $q.defer();
             $http({
                 
@@ -55,15 +47,8 @@ angular.module('newappApp').factory('BookingService', ['$http', '$q', function (
             });
 
             return deferred.promise;
-        }
-    };
-
-    return booking;
-}]);
-
-angular.module('newappApp').factory('PayPalAmountService', ['$http', '$q', function ($http, $q) {
-    var booking = {
-        getAmount: function () {
+        },
+            getPayPalAmount: function () {
             var deferred = $q.defer();
             $http({
                 'cache': true,
@@ -75,15 +60,8 @@ angular.module('newappApp').factory('PayPalAmountService', ['$http', '$q', funct
             });
 
             return deferred.promise;
-        }
-    };
-
-    return booking;
-}]);
-
-angular.module('newappApp').factory('JusPayApplicableService', ['$http', '$q', function ($http, $q) {
-    var booking = {
-        getApplicability: function () {
+        },
+            getJusPayApplicability: function () {
             var deferred = $q.defer();
             $http({
                 'cache': true,
@@ -95,15 +73,8 @@ angular.module('newappApp').factory('JusPayApplicableService', ['$http', '$q', f
             });
 
             return deferred.promise;
-        }
-    };
-
-    return booking;
-}]);
-
-angular.module('newappApp').factory('PaymentGatewayService', ['$http', '$q', function ($http, $q) {
-    var booking = {
-        execute: function (pg,postData) {
+        },
+            executePg: function (pg,postData) {
             var deferred = $q.defer();
             $http({
                 'url': pg,
@@ -123,15 +94,8 @@ angular.module('newappApp').factory('PaymentGatewayService', ['$http', '$q', fun
             });
 
             return deferred.promise;
-        }
-    };
-
-    return booking;
-}]);
-
-angular.module('newappApp').factory('GetOrderStatusService', ['$http', '$q', function ($http, $q) {
-    var booking = {
-        execute: function (orderId) {
+        },
+            getOrderStatus: function (orderId) {
             var deferred = $q.defer();
             $http({
                 'cache': true,
@@ -144,15 +108,8 @@ angular.module('newappApp').factory('GetOrderStatusService', ['$http', '$q', fun
             });
 
             return deferred.promise;
-        }
-    };
-
-    return booking;
-}]);
-
-angular.module('newappApp').factory('UpdateOrderService', ['$http', '$q', function ($http, $q) {
-    var booking = {
-        execute: function (postData) {
+        },
+            updateOrder: function (postData) {
             var deferred = $q.defer();
             $http({
                 'url': url+'/api/juspay/updateOrder/',
@@ -171,15 +128,8 @@ angular.module('newappApp').factory('UpdateOrderService', ['$http', '$q', functi
             });
 
             return deferred.promise;
-        }
-    };
-
-    return booking;
-}]);
-
-angular.module('newappApp').factory('CreateOrderService', ['$http', '$q', function ($http, $q) {
-    var booking = {
-        execute: function (postData) {
+        },
+            createOrder: function (postData) {
             var deferred = $q.defer();
             $http({
                 'url': url+'/api/juspay/createOrder/',
@@ -199,34 +149,9 @@ angular.module('newappApp').factory('CreateOrderService', ['$http', '$q', functi
 
             return deferred.promise;
         }
-    };
+        };
 
-    return booking;
+        return details;
 }]);
 
-angular.module('newappApp').factory('DeleteCardService', ['$http', '$q', function ($http, $q) {
-    var booking = {
-        execute: function (postData) {
-            var deferred = $q.defer();
-            $http({
-                'url': url+'/api/juspay/deleteCard/',
-                'method': 'POST',
-                'data':postData,
-                'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
-                'transformRequest': function(obj) {
-                    var str = [];
-                    for(var p in obj)
-                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    return str.join("&");
-                }
-                
-            }).then(function (data) {
-                deferred.resolve(data);
-            });
 
-            return deferred.promise;
-        }
-    };
-
-    return booking;
-}]);
