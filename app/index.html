@@ -25,10 +25,12 @@
         <div class="logo"><a href="#"><img src="images/company-logo.png" alt="Travelyaari Logo" title="Welcome"></a></div>
         <div class="topRight">
             <div class="topNo">(080) - 44820000</div>
-            <div class="topPlace"><a href="#" class="blackLink">Bangalore</a></div>
-            <div class="logIn"><a href="#" class="blackLink">Log In / Sign Up</a></div>
+            <div class="topPlace"><a href class="blackLink">Bangalore</a></div>
+            <div class="logIn"><a href class="blackLink" ng-click="changeLoginDisplay()">Log In / Sign Up</a></div>
         </div>
     </div>
+    
+    <ty-login ng-show="loginShow"></ty-login>
 </header>
 
     
@@ -70,6 +72,7 @@
         <script src="scripts/directives/tybookingsummary.js"></script>
         <script src="scripts/directives/tyyourdetails.js"></script>
         <script src="scripts/directives/typaymentmethod.js"></script>
+        <script src="scripts/directives/tylogin.js"></script>
         <script src="scripts/services/checkoutdetaildata.js"></script>
         <script src="scripts/services/netbank.js"></script>
         <script src="scripts/services/wallet.js"></script>

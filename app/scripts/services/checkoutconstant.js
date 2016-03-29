@@ -15,5 +15,8 @@ angular.module('newappApp')
     'wallet':'wallet',
     'cash_card':'cashc',
     'int':'int',
-    'express':'express'
+    'express':'express',
+    'OPEN_LOGIN':'open_login',
+    'CLOSE_LOGIN':'close_login',
+    'LOGIN':'login'
 });

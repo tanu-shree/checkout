@@ -1,0 +1,67 @@
+<div class="active-screen"></div>
+<div id="loginContent" class="loginContent">
+	<div class="title">Sign In</div>
+    <div class="close" ng-click="closeLogin()">X</div>
+	<div class="standard-login leftLogin">
+		<form id="loginForm">
+			<div class="form-row padT15 clearfix">
+				<div class="leftLogin label">
+					<label for="loginEmail">Email</label>
+				</div>
+				<div class="leftLogin">
+					<input id="loginEmail" type="text" placeholder="Enter your email" value="" name="email" maxlength="50" autocomplete="off" style="width: 200px;padding-left: 5px;" ng-model="loginInfo.email">
+				</div>
+			</div>
+			<div class="form-row padT15 clearfix">
+				<div class="leftLogin label">
+					<label for="loginPassword">Password</label>
+				</div>
+				<div class="leftLogin">	
+					<input id="loginPassword" type="password" placeholder="Enter your password"  value="" name="password" maxlength="50" autocomplete="off" style="width: 200px;padding-left: 5px;" ng-model="loginInfo.password">
+				</div>
+			</div>
+			<!--
+			<div class="form-row padT15 clearfix">
+				<div class="left label">
+					<label>&nbsp;</label>
+				</div>
+				<div class="left">
+					<input type="checkbox" id="rememberMe" class="checkbox left" name="remember">
+					<label for="rememberMe" class="left">Remember me</label> 
+				</div>
+			</div>
+			-->
+			<div class="form-row padT20 clearfix">
+				<div class="leftLogin label">
+					<label>&nbsp;</label>
+				</div>
+				<div class="leftLogin">
+					<button type="button" id="loginSubmit" class="primary-btn" ng-click="signIn()">Sign In</button>
+					<div class="loadingBar right" id="loginSubmitWait" style="display:none"><span>Signing in...</span></div>
+				</div>
+			</div>
+			<div class="extra clearfix">
+				<div class="leftLogin label">
+					<label>&nbsp;</label>
+				</div>
+				<div class="leftLogin">
+					<div><a href="javascript:void(0);" id="forgotPassword">Forgot your password?</a></div>
+					<div class="msg"></div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="split leftLogin">
+		<div class="separator"></div>
+		<div class="or">OR</div>
+		<div class="separator"></div>
+	</div>
+	<div class="social-login leftLogin">
+		<div class="fb-login">
+			<button id="fbLoginBtn" class="zocial facebook">Sign In with Facebook</button>
+		</div>
+		<div class="google-login">
+			<button id="googleLoginBtn" class="zocial google">Sign In with Google</button>
+		</div>
+	</div>
+</div>
