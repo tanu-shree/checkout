@@ -10,7 +10,8 @@
 angular.module('newappApp')
   .factory('checkoutDetailData', function () {
     var checkoutDetails = {
-           'details':[]
+           'details':[],
+            'paymentOptions':[]
         };
 
         return checkoutDetails;

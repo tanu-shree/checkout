@@ -18,7 +18,7 @@ angular.module('newappApp')
                 if ($scope.customerDetail.email != null && $scope.customerDetail.mobile != null) {
                     $scope.firstSection = false;
                     $scope.tabInfo = true;
-                   // $(".paymentMethod").removeAttr("style");
+                   
                     var myEl = angular.element( document.querySelector( '.paymentMethod' ) );
                     myEl.removeAttr('style');
                 }
@@ -29,7 +29,7 @@ angular.module('newappApp')
             $scope.edit = function () {
                 $scope.firstSection = true;
                 $scope.tabInfo = false;
-                //$(".paymentMethod").attr("style", "margin-top:100px; opacity: 0.2;");
+                
                 var myEl = angular.element( document.querySelector( '.paymentMethod' ) );
                 myEl.attr('style','margin-top:100px; opacity: 0.2;');
 

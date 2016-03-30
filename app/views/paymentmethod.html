@@ -5,19 +5,11 @@
     </div><!--End Title-->
 
     <div class="tabSection">
-        <!--<ul ng-click="selectedOption($event);">
-            <li class="debit" ng-class="{current:isSelected('debit')}" id="debit">Debit / Credit Card</li>
-            <li class="netbank" ng-class="{current:isSelected('netbank')}" id="netbank">Net Banking</li>
-            <li class="wallet" ng-class="{current:isSelected('wallet')}" id="wallet">
-                Wallet
-                <div class="walletStrip">Offers Inside</div>
-            </li>
-            <li class="othercard" id="othercard" ng-class="{current:isSelected('othercard')}">Other Payment<span>ATM Card / Paypal</span></li>
-        </ul>-->
+        
         <ul>
-            <li ng-repeat="(index,value) in tabDetails" id="{{::index}}" ng-class="{current:isSelected(index)}" ng-click="selectedOption(index);" class="{{index}}">{{::value}}
-                <div class="walletStrip" ng-if="::index=='wallet'">Offers Inside</div>
-                <span ng-if="::index=='othercard'">ATM Card / Paypal</span>
+            <li ng-repeat="option in payment.methods" id="{{::option.code}}" ng-class="{current:isSelected(option.code)}" ng-click="selectedOption(option.code);" class="{{option.code}}">{{::option.label}}
+                <div class="walletStrip" ng-if="::option.code=='wallet'">Offers Inside</div>
+                <span ng-if="::option.code=='op'">ATM Card / Paypal</span>
             </li>
         </ul>
     </div>
@@ -30,7 +22,7 @@
         <input type="hidden" name="pay_provider" id="provider" value="{{provider}}"/>
         <ng-form name="tabForm">
 
-            <div ng-show="isSelected('debit')">
+            <div ng-show="isSelected('cc')">
                 <div class="debitTop">
                     <div class="securedLeft"> <img src="images/secured.png" alt="Secured"> </div>
                     <div class="securedInfo">
@@ -41,8 +33,8 @@
                 </div>
                 <!--End Trust Part-->
 
-                <div class="debitInfo" ng-show="checkout.details.savedCards.length==0||cardInput">
-                    <input class="cardno" id="cardno" placeholder="Credit / Debit Card No" type="Credit / Debit Card No" name="cardno" ng-model="ccinfo.securityCode" ng-required="isSelected('debit')" data-ng-pattern="/^[0-9]+$/" data-credit-card-type  data-ng-minlength="10" maxlength="19" >
+                <div class="debitInfo">
+                    <input class="cardno" id="cardno" placeholder="Credit / Debit Card No" type="Credit / Debit Card No" name="cardno" ng-model="ccinfo.securityCode" ng-required="isSelected('cc')" data-ng-pattern="/^[0-9]+$/" data-credit-card-type  data-ng-minlength="10" maxlength="19" >
                     <span class="cardType"><img src="images/{{ccinfo.type}}.png"/></span>
                    <!-- <div ng-messages="tabForm.cardno.$error" ng-if="tabForm.cardno.$dirty">
                         <p ng-message="required" class="errMsg">This is required</p>
@@ -54,15 +46,15 @@
                         <li ng-show="tabForm.cardno.$error.invalid" class="errMsg">Credit card must be a valid Amex, Visa, Discover, or Master Card</li>
                         <li ng-show="tabForm.cardno.$error.required" class="errMsg">Credit card required</li>
                     </ul>
-                    <input class="debitUser" placeholder="Credit / Debit Card Name" type="5s6s5s5s5" ng-required="isSelected('debit')" name="debitUser" ng-model="ccinfo.name">
+                    <input class="debitUser" placeholder="Credit / Debit Card Name" type="5s6s5s5s5" ng-required="isSelected('cc')" name="debitUser" ng-model="ccinfo.name">
                     <ul ng-show="tabForm.submitAttempt && !tabForm.$valid">
                         <li ng-show="tabForm.debitUser.$error.required" class="errMsg">Name required</li>
                     </ul>
                     
-                    <input class="debitMonth" id="debitMonth" placeholder="MM" type="5s6s5s5s5" ng-required="isSelected('debit')" name="debitMonth" ng-model="ccinfo.month"  data-card-expiration ng-pattern="/^[0-1]+[0-9]+$/" ng-maxlength="2" ng-keypress="checkKeyPressed($event)">
+                    <input class="debitMonth" id="debitMonth" placeholder="MM" type="5s6s5s5s5" ng-required="isSelected('cc')" name="debitMonth" ng-model="ccinfo.month"  data-card-expiration ng-pattern="/^[0-1]+[0-9]+$/" ng-maxlength="2" ng-keypress="checkKeyPressed($event)">
                     <div class="debitsep"><img src="images/debt-sep.png" alt="Sep"></div>
-                    <input class="debitMonth" id="debitYear" placeholder="YY" type="5s6s5s5s5" name="debitYear" ng-required="isSelected('debit')"  ng-model="ccinfo.year" ng-keypress="checkKeyPressed($event)">
-                    <input class="debitCvv" id="debitCVV" placeholder="CVV" type="5s6s5s5s5" ng-required="isSelected('debit')" name="debitCVV" ng-model="ccinfo.cvv" ng-minlength="3" ng-keypress="checkKeyPressed($event)">
+                    <input class="debitMonth" id="debitYear" placeholder="YY" type="5s6s5s5s5" name="debitYear" ng-required="isSelected('cc')"  ng-model="ccinfo.year" ng-keypress="checkKeyPressed($event)">
+                    <input class="debitCvv" id="debitCVV" placeholder="CVV" type="5s6s5s5s5" ng-required="isSelected('cc')" name="debitCVV" ng-model="ccinfo.cvv" ng-minlength="3" ng-keypress="checkKeyPressed($event)">
                     <ul ng-show="tabForm.submitAttempt && !tabForm.$valid" style="float:right;width:35%;color:red;">
                         <li ng-show="tabForm.debitCVV.$error.required"  >CVV required</li>
                         <li ng-show="tabForm.debitCVV.$error.minlength"  >min length 3</li>
@@ -83,7 +75,7 @@
                 </div>
                 <!--End Debit / Credit Card Info-->
                 <!--saved card-->
-                <div ng-show="((checkout.details.savedCards.length>0)&&savedCardInput)">
+                <div ng-show="false">
                     <div class="cardTitle">
                         <div class="cardTitle-left">
                             <h4>Your Saved Card</h4>
@@ -114,7 +106,7 @@
 
 
 
-            <div ng-show="isSelected('netbank')">
+            <div ng-show="isSelected('nb')">
                 <div class="cardTitle">
                     <div class="cardTitle-left">
                         <h4>Choose from Popular Banks</h4>
@@ -124,7 +116,7 @@
 
                     <div class="banklogo-wrapper">
                         <ul>
-                            <li ng-repeat="(nbProvider,nbName) in checkout.details.pgOptions.nb.popular" ng-click="selectBank_popular(nbProvider);" ng-class="{netbank_select:isNetBankOptionSelected(nbProvider)}">
+                            <li ng-repeat="(nbProvider,nbName) in payment.options.nb.popular" ng-click="selectBank_popular(nbProvider);" ng-class="{option_select:isNetBankOptionSelected(nbProvider)}">
                                 <a href><img ng-src="images/{{::NetBank[nbProvider]}}" alt="{{::nbName}}"></a>
                             </li>
                             
@@ -134,7 +126,7 @@
                     <div class="or-wrapper">
                         <p>or</p>
                     </div>
-                    <select id="nbBank" name="nbBank" class="selectBank" ng-model="data.repeatSelect" ng-options="nbProvider as nbName for (nbProvider,nbName) in checkout.details.pgOptions.nb.all" ng-change="selectBank_all(data.repeatSelect);">
+                    <select id="nbBank" name="nbBank" class="selectBank" ng-model="data.repeatSelect" ng-options="nbProvider as nbName for (nbProvider,nbName) in payment.options.nb.all" ng-change="selectBank_all(data.repeatSelect);">
                         
                         <option></option>
 
@@ -145,32 +137,29 @@
             <div ng-show="isSelected('wallet')">
                 <div class="wallet-wrapper">
                     <ul>
-                        <li ng-class="{netbank_select:isWalletOptionSelected('paytm_wallet')}" ng-click="selectWallet('paytm_wallet')">
+                        <li ng-repeat="(walProvider,walName) in payment.options.wallet.previlaged" ng-class="{option_select:isWalletOptionSelected(walProvider)}" ng-click="selectWallet(walProvider)">
                             <a href>
-                                <img src="images/paytm-logo.jpg" alt="Paytm Wallet Offers">
-                                <p>Get Up to 25% Cashback</p>
-                                <p><span>Limited time offer</span></p>
+                                <img src="images/{{Wallet[walProvider]}}" alt="{{walName}}">
+                                <p>{{::msg[walProvider]}}</p>
+                                <p><span>{{::subtitle[walProvider]}}</span></p>
                             </a>
                         </li>
-                        <li ng-repeat="(walProvider,walName) in checkout.details.pgOptions.wallet" ng-if="::walProvider!='paytm_wallet'" ng-class="{netbank_select:isWalletOptionSelected(walProvider)}" ng-click="selectWallet(walProvider)">
+                        
+                        <li ng-repeat="(walProvider,walName) in payment.options.wallet.all" ng-if="::checkIfInWalletPriviledged(walProvider)!=1" ng-class="{option_select:isWalletOptionSelected(walProvider)}" ng-click="selectWallet(walProvider)">
                             <a href><img ng-src="images/{{Wallet[walProvider]}}" alt="{{walName}}"></a>
-                            <!--<div class="wallet-strip">15% OFF</div>-->
+                            <div class="wallet-strip">{{::msg[walProvider]}}</div>
                         </li>
-                        <li ng-repeat="(walProvider,walName) in checkout.details.pgOptions.cashc" ng-class="{netbank_select:isCashCardOptionSelected(walProvider)}" ng-click="selectCashCard(walProvider)">
-                            <a href><img ng-src="images/{{::CashCard[walProvider]}}" alt="{{::walName}}"></a>
-                            <!--<div class="wallet-strip">15% OFF</div>-->
-                        </li>
-                       
+
                     </ul>
                 </div>
 
             </div>
-            <div ng-show="isSelected('othercard')">
+            <div ng-show="isSelected('op')">
                 <div class="otherpay-wrapper">
                     <div class="banklogo-wrapper">
                         <ul>
-                            <li ng-repeat="(walProvider,walName) in dc_AtmCards" ng-class="{netbank_select:isDcOtherOptionSelected(walProvider)}" ng-click="selectAtmCard(walProvider)">
-                                <a href><img src="images/{{::CashCard[walProvider]}}" alt="{{::walName}}"></a>
+                            <li ng-repeat="(opProvider,opName) in payment.options.op.all" ng-if="::checkIfInOtherOptionOther(opProvider)!=1" ng-class="{option_select:isOtherOptionSelected(opProvider)}" ng-click="selectOtherOption(opProvider)">
+                                <a href><img src="images/{{::OtherOption[opProvider]}}" alt="{{::opName}}"></a>
                             </li>
                         </ul>
                     </div>
@@ -183,8 +172,8 @@
                                 <a href><img src="images/mobikwik-logo.jpg" alt="Ola Money Wallet Offer"></a>
                                 <p>Total charges including forex and transaction fees: {{paypalAmount}}</p>
                             </li>-->
-                            <li ng-repeat="(walProvider,walName) in checkout.details.pgOptions.int" ng-class="{netbank_select:isInternationalOptionSelected(walProvider)}" ng-click="selectInternational(walProvider)">
-                                <a href><img src="images/{{::CashCard[walProvider]}}" alt="{{::walName}}"></a>
+                            <li ng-repeat="(opProvider,opName) in payment.options.op.others" ng-class="{option_select:isOtherOptionSelected(opProvider)}" ng-click="selectOtherOption(opProvider)">
+                                <a href><img src="images/{{::OtherOption[opProvider]}}" alt="{{::opName}}"></a>
                                 <p>Total charges including forex and transaction fees: {{paypalAmount}}</p>
                             </li>
                         </ul>

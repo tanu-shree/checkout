@@ -14,7 +14,7 @@
 
 angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function ($http, $q) {
         var details = {
-            getCheckoutInfo: function () {
+            /*getCheckoutInfo: function () {
                 var deferred = $q.defer();
                 $http({
                     'cache': true,
@@ -25,7 +25,7 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
                 });
 
                 return deferred.promise;
-            },
+            },*/
             book: function (apiurl,orderToken,method,provider,browser,postData) {
             var deferred = $q.defer();
             $http({
@@ -148,7 +148,31 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
             });
 
             return deferred.promise;
-        }
+            },
+            getOrderDetails: function (orderId) {
+                var deferred = $q.defer();
+                $http({
+                    'cache': true,
+                    'url': url + '/api/v2/transactions/orderDetails?orderId='+orderId,
+                    'method': 'GET'
+                }).then(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            },
+            getPaymentOptions: function (orderId) {
+                var deferred = $q.defer();
+                $http({
+                    'cache': true,
+                    'url': url + '/api/v2/transactions/paymentOptions',
+                    'method': 'GET'
+                }).then(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
         };
 
         return details;

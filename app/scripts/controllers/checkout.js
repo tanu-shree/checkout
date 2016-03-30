@@ -15,29 +15,25 @@ angular.module('newappApp')
     $scope.checkoutDetailsData = checkoutDetailData;
     $scope.customerDetail = {email:"",mobile:""};
     $scope.isCheckedReliability = true;
-    CheckoutService.getCheckoutInfo().then(function (response) {
+    
+    CheckoutService.getOrderDetails(8001).then(function (response) {
         checkoutDetailData.details = response.data;
         console.log(checkoutDetailData);
 
-        $scope.CheckoutDetail = response.data;
+        $scope.CheckoutDetail = response.data.order;
+        console.log($scope.CheckoutDetail);
+        $scope.customerDetail = { email: $scope.CheckoutDetail.customer_details.email, mobile: $scope.CheckoutDetail.customer_details.contactNo };
         
-        $scope.customerDetail = { email: $scope.CheckoutDetail.email, mobile: $scope.CheckoutDetail.mobile };
-        if($scope.CheckoutDetail.order_type==1){
-            $scope.CheckoutDetail.journeyDate = formatDate($scope.CheckoutDetail.journeyDate);
-            if ($scope.CheckoutDetail.extra.return != null) {
-                $scope.CheckoutDetail.journeyDate2 = formatDate($scope.CheckoutDetail.journeyDate2);
-            }
-        }
         $scope.$broadcast('checkout', $scope.CheckoutDetail);
         
+    });  
+    CheckoutService.getPaymentOptions().then(function(response){
+        $scope.PaymentOptions=response.data.payment;
+        checkoutDetailData.paymentOptions=$scope.PaymentOptions;
+        console.log("1");
+        $scope.$broadcast(checkoutConstant.PAYMENT);
     });
 
-
-    function camelize(str) {
-        return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (letter, index) {
-            return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-        }).replace(/\s+/g, '');
-    }
 
     function formatDate(strDate) {
         var monthNames = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul","August", "Sep", "Oct","Nov", "Dec"];

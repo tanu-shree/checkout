@@ -18,5 +18,7 @@ angular.module('newappApp')
     'express':'express',
     'OPEN_LOGIN':'open_login',
     'CLOSE_LOGIN':'close_login',
-    'LOGIN':'login'
+    'LOGIN':'login',
+    'ROUNDTRIP':'roundtrip',
+    'PAYMENT':'payment'
 });
