@@ -1,5 +1,5 @@
 <div class="passengerDetails">
-    <div ng-if="firstSection" class="firstSection">
+    <div ng-show="firstSection" class="firstSection">
         <ng-form name="detailForm">
             <div class="yourdetail-wrapper">
                 <div class="paymentTitle">
@@ -11,7 +11,8 @@
                      <ul ng-show="detailForm.submitAttempt && !detailForm.$valid">
                         <li ng-show="detailForm.email.$error.required" class="errMsg">Email required</li>
                     </ul>
-                    <input class="detials" placeholder="Apply coupon code here" type="5s6s5s5s5" name="coupon" required>
+                    <input class="detials" placeholder="Apply coupon code here" type="5s6s5s5s5" name="coupon" id="couponInput" required ng-model="customerDetail.coupon" ng-keypress="checkKeyPressed($event)">
+                    <label class="coupon-msg" ng-style="customerDetail.discount!=0?{'color':'green'}:{'color':'red'}">{{couponMsg}}</label>
                 </div>
                 <div class="yourdetail-right">
                     <input class="detials" placeholder="Mobile No" type="Credit / Debit Card No" name="mobile" ng-model="customerDetail.mobile" ng-required="true" id="phoneInput" ng-keypress="checkKeyPressed($event)" ng-minlength="10">
@@ -24,7 +25,7 @@
             </div>
         </form>
     </div>
-    <div ng-if="!firstSection">
+    <div ng-show="!firstSection">
         <div class="yourInfo">
             <img src="images/success-tick.png" alt="Succes Tick">
             <h3>Your Details</h3>
@@ -39,8 +40,7 @@
         </div>
         <!--End Your Info-->
 
-
-
+        
         <div class="edit" ng-click="edit();"><a href class="blueLink">Edit</a></div>
     </div>
 </div>

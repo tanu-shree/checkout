@@ -5,13 +5,13 @@
                 <div class="payment">
                    <ty-your-details ></ty-your-details>
 
-                   <ty-payment-method payment="PaymentOptions" tabinfo="tabInfo"></ty-payment-method>     
+                   <ty-payment-method payment="PaymentOptions" tabinfo="tabInfo" token="token" customerdetail="customerDetail"></ty-payment-method>     
 
                     </div>
             </div>
             <!--End Left Part-->
 
-            <ty-bus-summary summary="CheckoutDetail.order_summary.bus_booking" ng-if="CheckoutDetail.type==1"></ty-bus-summary>
+            <ty-bus-summary summary="CheckoutDetail.order_summary.bus_booking" discount="customerDetail.discount" ng-if="CheckoutDetail.type==1"></ty-bus-summary>
             <!--End Right Part-->
         </div>
 

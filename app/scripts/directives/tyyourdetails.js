@@ -12,7 +12,7 @@ angular.module('newappApp')
         scope:false,
         templateUrl: '/views/yourdetail.html',
         restrict: 'E',
-        controller: ['$scope',  function ($scope) {
+        controller: ['$scope','CheckoutService',  function ($scope,CheckoutService) {
             $scope.firstSection = true;
             $scope.confirmBooking = function () {
                 if ($scope.customerDetail.email != null && $scope.customerDetail.mobile != null) {
@@ -32,7 +32,7 @@ angular.module('newappApp')
                 
                 var myEl = angular.element( document.querySelector( '.paymentMethod' ) );
                 myEl.attr('style','margin-top:100px; opacity: 0.2;');
-
+                
             };
 
             var specialKeys = new Array();
@@ -64,9 +64,36 @@ angular.module('newappApp')
                         e.preventDefault();
                     }
                 }
+                
+                else if(e.target.id=="couponInput"){
+                    
+                    if(e.keyCode==13){
+                        
+                        if($scope.customerDetail.coupon!=null){
+                            checkCoupon();
+                        }
+                        else{
+                            $scope.customerDetail.discount=0;
+                            $scope.couponMsg="Please Enter Coupon Code";
+                        }
+                    }
+                }
 
             };
-            
+            function checkCoupon(){
+                var postData={coupon:$scope.customerDetail.coupon,token:$scope.token};
+                CheckoutService.checkCoupon($scope.customerDetail.coupon,postData).then(function(response){
+                    if(response.data.success==true){
+                        $scope.customerDetail.discount=response.data.discountAmount;
+                        $scope.couponMsg="You just saved Rs."+$scope.customerDetail.discount+" on the fare";
+                    }
+                    else{
+                        $scope.customerDetail.discount=0;
+                        $scope.couponMsg=response.data.errorMsg;
+                    }
+
+                });
+            }
         }],
         link: function postLink(scope, element, attrs) {
             

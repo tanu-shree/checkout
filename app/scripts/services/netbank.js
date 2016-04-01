@@ -15,7 +15,8 @@ angular.module('newappApp')
         "hdfc_nb": "hdfc-bank.jpg",
         "icici_nb": "icici-bank.jpg",
         "idbi_nb": "idbi-logo.jpg",
-        "sbi_nb": "state-bank.jpg"
+        "sbi_nb": "state-bank.jpg",
+        "idbi_nb":"idbibank.jpg"
         
     }
     return dictNetBankImg;

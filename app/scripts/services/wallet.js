@@ -19,8 +19,8 @@ angular.module('newappApp')
         "icash_cashc": "icashcard.jpg",
         "itzno_cashc": "itscash.jpg",
         "oxi_cashc": "oxigen.jpg",
-        "payc_cashc": "payc.jpg"
-        
+        "payc_cashc": "paycash.png",
+        "payzippy_wallet":"payzippy.png"
     }
     return dictWalletImg;
   });

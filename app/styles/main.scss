@@ -131,7 +131,7 @@ $url_11: url(../images/wallet.png);
 $url_12: url(../images/wallet-active.png);
 $url_13: url(../images/othercard.png);
 $url_14: url(../images/othercard-active.png);
-$url_15: url(../images/master.png);
+$url_15: url(../images/mast_cc.png);
 $url_16: url(../images/user01.png);
 $url_17: url(../images/cvv-card.png);
 $url_18: url(../images/checkbox.png);
@@ -215,6 +215,7 @@ body {
 		&:hover {
 			color: $color_vermilion_approx;
 		}
+       
 	}
 	.blackLink {
 		color: $color_tundora_approx;
@@ -331,10 +332,16 @@ body {
 		width: 100%;
 		float: left;
 		margin-top: 20px;
+         -webkit-transition: all 0.7s ease-out;
+       -moz-transition: all 0.5s ease-out;
+        -ms-transition: all 0.5s ease-out;
+         -o-transition: all 0.5s ease-out;
+            transition: all 0.5s ease-out;
 	}
 	.paymentTitle {
 		width: 97%;
 		float: left;
+        
 		span {
 			float: left;
 			margin-right: 2%;
@@ -443,6 +450,7 @@ body {
 	.tabinfo-container {
 		width: 70%;
 		margin: 30px auto 20px auto;
+        
 	}
 	.debitTop {
 		width: 100%;
@@ -991,9 +999,7 @@ $red: red;
 $black_60: rgba(0,0,0,0.6);
 $color_celeste_approx: #ccc;
 
-//urls
-$url_0: url(../images/plus.png);
-$url_1: url(../images/master.png);
+
 
 //@extend-elements
 //original selectors
@@ -1059,10 +1065,24 @@ $url_1: url(../images/master.png);
 	padding-top: 10px;
 	border-top: solid 1px $color_alto_approx;
 }
-.test {
-	height: 27px;
-	background: $url_0 no-repeat 390px 12px;
-	float: right;
+.accordian-plus {
+	/*height: 27px;
+	background: url(../images/plus.png) no-repeat 390px 12px;
+	float: right;*/
+    height: 16px;
+    background: url(../images/plus.png) repeat 1px -14px;
+    float: right;
+    width: 15px;
+    cursor:pointer;
+}
+.accordian-minus{
+    height:4px;
+    margin-top:6px;
+    background: url(../images/minus.png) repeat 1px -14px;
+    float: right;
+    width: 15px;
+    cursor:pointer;
+    
 }
 .saved-card-img {
 	background: $url_1 no-repeat center right;
@@ -1114,7 +1134,7 @@ form.submitted .ng-invalid {
 	-khtml-opacity: 0.6;
 
 }
-
+//login page
 
 .loginContent{
     position:absolute;
@@ -1220,6 +1240,65 @@ form.submitted .ng-invalid {
     }
 }
 
+.wallet-popup {
+		width: 97%;
+		//float: left;
+		border: solid 1px $color_concrete_approx;
+        box-shadow: 0 0 10px $black_60;
+		margin-top: 40px;
+		//border-top: solid 1px $color_concrete_approx;
+		padding:12px 1% 12px 2%;
+        min-height:200px;
+        word-wrap: break-word;
+			
+        .wallet-pop-left{
+            padding-right: 10%;
+            float: left;
+           
+            width:11%;
+		      img {
+                border: 0;
+                max-width: 100%;
+                padding-top:11%;
+              
+		      }
+        }
+    
+        .wallet-pop-body{
+             padding-top:12%;
+
+            p{
+
+                color: $color_endeavour_approx;
+            }
+            .wallet-terms{
+                div{
+                    padding-top:2%;
+                    color: $color_storm_dust_approx;
+                    line-height:24px;
+                }
+            }
+        }
+    
+        .wallet-pop-right{
+           
+            float:left;
+            width:78%;
+            p {
+                color: $color_endeavour_approx;
+                //float:left;
+                
+                span {
+                    font-size: 14px;
+                    color: $color_storm_dust_approx;
+                }
+            }
+            span{
+                font-size: 14px;
+                color: $color_storm_dust_approx;
+            }
+        }
+	}
 
 //Responsive design
 
@@ -1229,12 +1308,12 @@ $white: #fff;
 
 @charset "utf-8";
 @media only screen and(max-width : 1200px) {
-	.checkout .center {
+	 .center {
 		width: 95%;
 	}
 }
 @media only screen and(max-width :1024px) {
-	.checkout {
+	//.checkout {
 		.wrapper {
 			font-size: 0.875em;
 		}
@@ -1253,16 +1332,16 @@ $white: #fff;
 		.banklogo-wrapper ul li {
 			width: 32.9%;
 		}
-	}
+//	}
     .loginContent{left:13%;}
 }
 @media only screen and(max-width :900px) {
-	.checkout {
+	//.checkout {
 		.securedLeft {
 			width: 8%;
 			float: left;
 			padding-top: 20px;
-			border-bottom: solid 2px $red;
+			//border-bottom: solid 2px $red;
 		}
 		.securedInfo {
 			float: left;
@@ -1281,20 +1360,20 @@ $white: #fff;
 				padding: 75px 0 10px;
 			}
 		}
-	}
+	//}
 }
 @media only screen and(max-width :767px) {
-	.checkout {
+	//.checkout {
 		.wrapper {
 			font-size: 0.8125em;
 		}
 		.topRight {
 			width: 60%;
 		}
-	}
+	//}
 }
 @media only screen and(max-width :650px) {
-	.checkout {
+	//.checkout {
 		.left {
 			width: 100%;
 			float: none;
@@ -1308,9 +1387,43 @@ $white: #fff;
 		.tabinfo-container {
 			width: 100%;
 		}
-	}
+//	}
     .loginContent{
         left:2%;
         max-width:350px;
     }
+}
+
+//tooltip
+.tool-tip-wrapper{
+    background:#000000;
+    color:#ffffff; 
+    max-width: 30%;
+    position:absolute;
+    padding: 7px 7px 7px 7px;
+    font-size:12px;
+    line-height: 15px;
+}
+
+.coupon-msg{
+    margin-top:10px;
+    float:left;
+}
+
+.box {
+  width: 150px;
+  height: 150px;
+  background: red;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-transition: background-color 2s ease-out;
+  -moz-transition: background-color 2s ease-out;
+  -o-transition: background-color 2s ease-out;
+  transition: background-color 2s ease-out;
+}
+
+.box:hover {
+  background-color: green;
+  cursor: pointer;
 }

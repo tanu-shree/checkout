@@ -10,10 +10,10 @@
 var url = "http://dev.travelyaari.com";
 angular.module('newappApp')
   .controller('CheckoutCtrl', ['$scope', '$location', 'CheckoutService', 'checkoutDetailData','checkoutConstant', function ($scope, $location, CheckoutService,  checkoutDetailData,checkoutConstant) {
-    
+    $scope.token='8134bb03f3a22101e53c083939b1f653_8091317_605';
     $scope.tabInfo = false;
     $scope.checkoutDetailsData = checkoutDetailData;
-    $scope.customerDetail = {email:"",mobile:""};
+    $scope.customerDetail = {name:"",email:"",mobile:"",coupon:"",discount:0};
     $scope.isCheckedReliability = true;
     
     CheckoutService.getOrderDetails(8001).then(function (response) {
@@ -22,7 +22,7 @@ angular.module('newappApp')
 
         $scope.CheckoutDetail = response.data.order;
         console.log($scope.CheckoutDetail);
-        $scope.customerDetail = { email: $scope.CheckoutDetail.customer_details.email, mobile: $scope.CheckoutDetail.customer_details.contactNo };
+        $scope.customerDetail = {name:$scope.CheckoutDetail.customer_details.name, email: $scope.CheckoutDetail.customer_details.email, mobile: $scope.CheckoutDetail.customer_details.contactNo };
         
         $scope.$broadcast('checkout', $scope.CheckoutDetail);
         
@@ -31,7 +31,7 @@ angular.module('newappApp')
         $scope.PaymentOptions=response.data.payment;
         checkoutDetailData.paymentOptions=$scope.PaymentOptions;
         console.log("1");
-        $scope.$broadcast(checkoutConstant.PAYMENT);
+        
     });
 
 

@@ -172,6 +172,58 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
                 });
 
                 return deferred.promise;
+            },
+            getSavedCards: function(){
+                var deferred = $q.defer();
+                $http({
+                    'url': url + '/api/juspay/getCards',
+                    'method': 'GET'
+                }).then(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+
+            },
+            removeSavedCards: function(postData){
+                var deferred = $q.defer();
+                $http({
+                    'url': url + '/api/juspay/deleteCard',
+                    'method': 'POST',
+                    'data': postData,
+                    'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
+                    'transformRequest': function(obj) {
+                        var str = [];
+                        for(var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    }
+                }).then(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+
+            },
+            checkCoupon: function(couponCode,postData){
+                var deferred = $q.defer();
+                $http({
+                    'url': url + '/api/transaction/applyCoupon/?cc='+couponCode,
+                    'method': 'POST',
+                    'data': postData,
+                    'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
+                    'transformRequest': function(obj) {
+                        var str = [];
+                        for(var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    }
+                }).then(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+
             }
         };
 
