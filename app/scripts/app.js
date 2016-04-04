@@ -15,7 +15,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'modLogin'
+    'resource.loader'
   ])
   .config(['$routeProvider',function ($routeProvider) {
     $routeProvider

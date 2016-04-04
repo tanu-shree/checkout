@@ -11,7 +11,7 @@ angular.module('newappApp')
     var directive =
         { require: 'ngModel'
         , link: function(scope, elm, attrs, ctrl){
-            scope.$watch('[ccinfo.month,ccinfo.year]',function(value){
+            scope.$watch('[ccinfo.month,ccinfo.year]',function(newval,oldval){
                 var month=new Date().getMonth()+1;
                 if(month>=9){
                     month=("0").concat(month);
@@ -24,8 +24,9 @@ angular.module('newappApp')
                 ctrl.$setValidity('invalid',true);
               }
                 
-              return value;
-            },true)
+              //return value;
+            },true);
+            
           }
         }
       return directive;

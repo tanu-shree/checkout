@@ -39,7 +39,7 @@
             </div>
         </div>
 
-            <div ng-if="CheckoutDetail.order_summary.bus_booking.mode=='roundtrip'" class="onwardDetails">
+            <div ng-if="::CheckoutDetail.order_summary.bus_booking.mode=='roundtrip'" class="onwardDetails">
             <p style="padding-bottom:10px;" ng-click="returnOpen=(returnOpen==true?false:true)"><a href class="blueLink">Return Trip Details</a></p>
             <div id="returnTripDetails" ng-show="returnOpen">
                 <div class="tripBox">

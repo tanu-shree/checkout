@@ -10,10 +10,9 @@
 angular.module('newappApp')
   .factory('Card', function () {
     var dictCardImg = {
-        "mast_cc": "mast_cc.png",
-        "visa_cc": "visa_cc.png",
-        "amex_cc": "amex_cc.png"
-        
+        "mastercard": "mast_cc.png",
+        "visa": "visa_cc.png",
+        "amex": "amex_cc.png"
         
     }
     return dictCardImg;

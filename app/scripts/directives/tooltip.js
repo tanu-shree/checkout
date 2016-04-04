@@ -19,10 +19,10 @@ angular.module('newappApp')
       var templateUrl = attrs.myTooltipTemplate;
 
       scope.hidden = true;
-      var myWatch=scope.$watch(scope.myTooltipScope,function(){
+      var myWatch=scope.$watch(scope.myTooltipScope,function(newval,oldval){
            angular.element(document.querySelector( '.'+scope.myTooltipClass )).remove();
           updateTemplateScope();
-    }); 
+    },true); 
       
         updateTemplateScope();
       function updateTemplateScope(){

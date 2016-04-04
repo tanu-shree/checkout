@@ -31,7 +31,7 @@ angular.module('newappApp')
             $scope.data = { repeatSelect: '' };
             $scope.currentYear = new Date().getFullYear();
             $scope.currentMonth = new Date().getMonth() + 1;
-            $scope.ccinfo = {type:undefined,cardImage:undefined};
+            $scope.ccinfo = {type:undefined};
             $scope.selected = $scope.CONSTANT.CREDIT_CARD;
             $scope.Wallet=Wallet;
             $scope.NetBank=NetBank;
@@ -46,14 +46,14 @@ angular.module('newappApp')
             
             
             function createMyWatch(varName,callback){
-                var myWatch=$scope.$watch(varName,function(){
+                var myWatch=$scope.$watch(varName,function(newval,oldval){
                     
                     if ($scope[varName]!=undefined){
                         myWatch();
                         callback();
                     }
                     
-                });    
+                },true);    
             }
             createMyWatch('payment',function(){
                 wallet=Object.keys($scope.payment.options.wallet.previlaged)[0];
@@ -175,9 +175,9 @@ angular.module('newappApp')
                     var postData = getPaymentPostData();
                     
                     var browser = "";//detectBrowser();
-                    //executeBooking(postData,browser);
-                    addJuspaySubmitListener();
-                    submitJusPayform();
+                    executeBooking(postData,browser);
+                    //addJuspaySubmitListener();
+                    //submitJuspayForm();
                 }
             };
             
@@ -479,30 +479,31 @@ angular.module('newappApp')
             }
             
             function addJuspaySubmitListener(){
-                /*if($scope.method=='express'){*/
+                if($scope.method=='express'){
                     Juspay.Setup({
                     payment_form: "#juspay_payment_form_express",
                     success_handler: function(status) {},
                     error_handler: function(error_code, error_message, bank_error_code,bank_error_message, gateway_id) {}
                     });
-                /*}
+                }
                 else{
                     Juspay.Setup({
                     payment_form: "#juspay_payment_form",
                     success_handler: function(status) {},
                     error_handler: function(error_code, error_message, bank_error_code,bank_error_message, gateway_id) {}
                     });	
-                }*/
+                }
             }
             
             function submitJuspayForm(){
-                /*if($scope.method=='express'){*/
+                if($scope.method=='express'){
+                    console.log(document.getElementById("juspay_payment_form_express"));
                     document.getElementById("juspay_payment_form_express").submit();
-                /*}
+                }
                 else{
                     
                     document.getElementById("juspay_payment_form").submit();
-                }*/
+                }
             }
            
         }],

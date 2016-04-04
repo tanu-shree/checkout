@@ -37,7 +37,7 @@ angular.module('newappApp')
                
             }
             function createMyWatch(varName,callback){
-                var myWatch=$scope.$watch(varName,function(){
+                var myWatch=$scope.$watch(varName,function(newval,oldval){
                     console.log("watch");
                     console.log($scope.payment);
                     console.log($scope);
@@ -45,7 +45,7 @@ angular.module('newappApp')
                         myWatch();
                         callback();
                     }
-                });    
+                },true);    
             }
             
             createMyWatch('summary',function(){

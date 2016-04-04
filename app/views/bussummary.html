@@ -39,7 +39,7 @@
             </div>
         </div>
 
-            <div ng-if="summary.mode=='roundtrip'" class="onwardDetails">
+            <div ng-if="::summary.mode=='roundtrip'" class="onwardDetails">
             <p style="padding-bottom:10px;" ng-click="returnOpen=(returnOpen==true?false:true)">
                 <a href class="blueLink">Return Trip Details</a>
                 <span class="accordian" ng-class="returnOpen==false?'accordian-plus':'accordian-minus'"></span>
