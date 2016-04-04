@@ -332,11 +332,12 @@ body {
 		width: 100%;
 		float: left;
 		margin-top: 20px;
-         -webkit-transition: all 0.7s ease-out;
+         /*-webkit-transition: all 0.7s ease-out;
        -moz-transition: all 0.5s ease-out;
         -ms-transition: all 0.5s ease-out;
          -o-transition: all 0.5s ease-out;
-            transition: all 0.5s ease-out;
+            transition: all 0.5s ease-out;*/
+        transition: all linear 0.5s;
 	}
 	.paymentTitle {
 		width: 97%;
@@ -1426,4 +1427,27 @@ $white: #fff;
 .box:hover {
   background-color: green;
   cursor: pointer;
+}
+
+
+.wallet-popup.ng-hide-add , .wallet-popu.ng-hide-remove{
+   -webkit-transition: all 0.7s ease-out;
+       -moz-transition: all 0.5s ease-out;
+        -ms-transition: all 0.5s ease-out;
+         -o-transition: all 0.5s ease-out;
+            transition: all 0.5s ease-out;
+}
+
+.wallet-wrapper.ng-hide {
+   -webkit-transition: all 0.7s ease-out;
+       -moz-transition: all 0.5s ease-out;
+        -ms-transition: all 0.5s ease-out;
+         -o-transition: all 0.5s ease-out;
+            transition: all 0.5s ease-out;
+}
+
+
+.wallet-popup.ng-hide {
+  width:0px;
+    height:0px;
 }

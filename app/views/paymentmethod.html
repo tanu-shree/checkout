@@ -100,7 +100,7 @@
                                 <img src="images/payment-delete.png" alt="Remove this Card">
                                 <p><a href class="blackLink">Remove this Card</a></p>
                             </div>
-                            <input class="debitCvv" placeholder="CVV" type="5s6s5s5s5" ng-required="isSelected(CONSTANT.CREDIT_CARD)&& showSavedCard && selectedCard.card_token==savedCard.card_token">
+                            <input class="debitCvv" placeholder="CVV" type="5s6s5s5s5" ng-required="isSelected(CONSTANT.CREDIT_CARD)&& showSavedCard && selectedCard.card_token==savedCard.card_token" ng-model="selectedCard.cvv[savedCard.card_token]">
 
                         </div>
                        
@@ -230,13 +230,13 @@
     
     <div class='juspay_payment_inline' style="display:none">
 <form class="juspay_inline_form" id="juspay_payment_form">
-    <input type="hidden" ng-model="merchant_id" >
-    <input type="hidden" ng-model="order_id">
-    <input type="text" ng-model="card_number">
-    <input type="text" ng-model="name_on_card">
-    <input type="text" ng-model="card_exp_month">
-    <input type="text" ng-model="card_exp_year">
-    <input type="text" ng-model="security_code">
+    <input type="hidden" ng-model="merchant_id" value="merchant_id_inline" >
+    <input type="hidden" ng-model="order_id" value="orderid">
+    <input type="text" ng-model="card_number" value="ccinfo.securityCode">
+    <input type="text" ng-model="name_on_card" value="ccinfo.name">
+    <input type="text" ng-model="card_exp_month" value="ccinfo.month">
+    <input type="text" ng-model="card_exp_year" value="ccinfo.year">
+    <input type="text" ng-model="security_code" value="ccinfo.cvv">
     <input type="checkbox"  ng-checked="juspay_locker_save">
     <input type="hidden" ng-model="redirect" value="true">
 </form>
@@ -244,10 +244,10 @@
 
 <div class='juspay_payment_express' style="display:none">
 <form class="juspay_express_form" id="juspay_payment_form_express">
-    <input type="hidden" ng-model="merchant_id_express">
-    <input type="hidden" ng-model="order_id_express">
-    <input type="hidden" ng-model="card_token_express">
-    <input type="text" ng-model="security_code_express">
+    <input type="hidden" ng-model="merchant_id_express" value="abc">
+    <input type="hidden" ng-model="order_id_express" value="{{orderid}}">
+    <input type="hidden" ng-model="card_token_express" value="{{selectedCard.card_token}}">
+    <input type="text" ng-model="security_code_express" value="{{selectedCard.cvv[selectedCard.card_token]}}">
     <input type="hidden" ng-model="redirect" value="true">
 </form>
 </div>

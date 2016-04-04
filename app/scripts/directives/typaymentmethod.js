@@ -14,7 +14,8 @@ angular.module('newappApp')
             payment:'=',
             tabinfo:'=',
             token:'=',
-            customerdetail:'='
+            customerdetail:'=',
+            orderid:'='
         },
         templateUrl: '/views/paymentmethod.html',
         restrict: 'E',
@@ -38,7 +39,7 @@ angular.module('newappApp')
             $scope.Card=Card;
             $scope.showSavedCard=false;
             $scope.deletedCards=[];
-            $scope.selectedCard={card_token:'',card_fingerprint:'',card_brand:'',card_type:''};
+            $scope.selectedCard={card_token:'',card_fingerprint:'',card_brand:'',card_type:'',cvv:[]};
             $scope.walletSubtitle=[];
             $scope.walletMsg=[];
             $scope.walletTnc=[];
@@ -174,7 +175,9 @@ angular.module('newappApp')
                     var postData = getPaymentPostData();
                     
                     var browser = "";//detectBrowser();
-                    executeBooking(postData,browser);
+                    //executeBooking(postData,browser);
+                    addJuspaySubmitListener();
+                    submitJusPayform();
                 }
             };
             
@@ -474,7 +477,34 @@ angular.module('newappApp')
                     
                 }
             }
-             
+            
+            function addJuspaySubmitListener(){
+                /*if($scope.method=='express'){*/
+                    Juspay.Setup({
+                    payment_form: "#juspay_payment_form_express",
+                    success_handler: function(status) {},
+                    error_handler: function(error_code, error_message, bank_error_code,bank_error_message, gateway_id) {}
+                    });
+                /*}
+                else{
+                    Juspay.Setup({
+                    payment_form: "#juspay_payment_form",
+                    success_handler: function(status) {},
+                    error_handler: function(error_code, error_message, bank_error_code,bank_error_message, gateway_id) {}
+                    });	
+                }*/
+            }
+            
+            function submitJuspayForm(){
+                /*if($scope.method=='express'){*/
+                    document.getElementById("juspay_payment_form_express").submit();
+                /*}
+                else{
+                    
+                    document.getElementById("juspay_payment_form").submit();
+                }*/
+            }
+           
         }],
         link: function postLink(scope, element, attrs) { }
     };
