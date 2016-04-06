@@ -20,7 +20,7 @@ angular.module('newappApp')
         templateUrl: '/views/paymentmethod.html',
         restrict: 'E',
         controller: ['$scope','$sce','$window','$interval','checkoutConstant','CheckoutService', 'NetBank', 'Wallet','OtherOption','Card', function ($scope,$sce,$window,$interval,checkoutConstant,CheckoutService, NetBank, Wallet,OtherOption,Card) {
-           
+    
             
             var wallet="";
             var net_bank="";
@@ -38,13 +38,13 @@ angular.module('newappApp')
             $scope.OtherOption=OtherOption;
             $scope.Card=Card;
             $scope.showSavedCard=false;
-            $scope.deletedCards=[];
+            //$scope.deletedCards=[];
             $scope.selectedCard={card_token:'',card_fingerprint:'',card_brand:'',card_type:'',cvv:[]};
             $scope.walletSubtitle=[];
             $scope.walletMsg=[];
             $scope.walletTnc=[];
             
-            
+            checkIfUserIsLoogedIn();
             function createMyWatch(varName,callback){
                 var myWatch=$scope.$watch(varName,function(newval,oldval){
                     
@@ -64,17 +64,7 @@ angular.module('newappApp')
                 prepareOffers();
                 setPayment($scope.selected,'');
             });
-            CheckoutService.getSavedCards().then(function(response){
-                $scope.SavedCards=response.data;
-               
-                if(response.data!=null){
-                    $scope.showSavedCard=true;
-                    $scope.selectedCard={card_token:response.data[0].card_token,card_fingerprint:response.data[0].card_fingerprint, card_brand:response.data[0].card_brand, card_type: response.data[0].card_type};
-                    
-                    setSavedCardProvider($scope.selectedCard.card_brand,$scope.selectedCard.card_type);
-                }   
-
-            });
+            
             $scope.selectedOption = function (e) {
                 $scope.selected = e;
                 $scope.walletPopup=false;
@@ -86,13 +76,13 @@ angular.module('newappApp')
             };
             
             $scope.isSelected = function (item) {
-                if (item == $scope.selected) {
+                if (item === $scope.selected) {
                     return true;
                 }
                 return false;
             };
             $scope.isWalletOptionSelected = function (walProvider) {
-                if (wallet == walProvider) {
+                if (wallet === walProvider) {
                     return true;
                 }
                 return false;
@@ -103,13 +93,13 @@ angular.module('newappApp')
                 showPopupIfApplicable(walProvider);
             };
             $scope.isWalletOptionSelected = function (walProvider) {
-                if (wallet == walProvider) {
+                if (wallet === walProvider) {
                     return true;
                 }
                 return false;
             };
             $scope.isNetBankOptionSelected = function (nbProvider) {
-                if (net_bank == nbProvider) {
+                if (net_bank === nbProvider) {
                     return true;
                 }
                 return false;
@@ -129,7 +119,7 @@ angular.module('newappApp')
                 setPayment($scope.selected, opProvider);
             };
             $scope.isOtherOptionSelected = function (opProvider) {
-                if (op == opProvider) {
+                if (op === opProvider) {
                     return true;
                 }
                 return false;
@@ -141,19 +131,26 @@ angular.module('newappApp')
                 else
                 $scope.result = "No";
                 
-                if($scope.result=="Yes"){
+                if($scope.result==="Yes"){
                     var postData={card_token:savedCard.card_token,card_fingerprint:savedCard.card_fingerprint};
                      CheckoutService.removeSavedCards(postData).then(function(response){
-                        if(response.data.delete==true){
-                            $scope.deletedCards.push(response.data.card_token);
+                        if(response.data.delete===true){
+                           // $scope.deletedCards.push(response.data.card_token);
+                            callSavedCardService();
                         }  
 
                     });
+                    
                 }
             };
             $scope.selectCard=function(savedCard){
-                $scope.selectedCard={card_token:savedCard.card_token,card_fingerprint:savedCard.card_fingerprint, card_brand:savedCard.card_brand, card_type:savedCard.card_type};
+                $scope.selectedCard.card_token=savedCard.card_token;
+                $scope.selectedCard.card_fingerprint=savedCard.card_fingerprint;
+                $scope.selectedCard.card_brand=savedCard.card_brand;
+                $scope.selectedCard.card_type=savedCard.card_type;
                 setSavedCardProvider($scope.selectedCard.card_brand,$scope.selectedCard.card_type);
+                console.log($scope.method+" "+$scope.provider);
+                console.log($scope.selectedCard);
             };
             
            
@@ -161,7 +158,7 @@ angular.module('newappApp')
             $scope.checkIfSelectedInData=function(selected,arr){
                     
                 for(var key in arr) {
-                    if((key.localeCompare(selected))==0) {
+                    if((key.localeCompare(selected))===0) {
 
                         return 1;
                     }
@@ -171,11 +168,11 @@ angular.module('newappApp')
             
             $scope.confirmBooking = function () {
                 if($scope.tabForm.$valid){
-                    
+                    console.log("entered");
                     var postData = getPaymentPostData();
                     
                     var browser = "";//detectBrowser();
-                    executeBooking(postData,browser);
+                   // executeBooking(postData,browser);
                     //addJuspaySubmitListener();
                     //submitJuspayForm();
                 }
@@ -186,12 +183,15 @@ angular.module('newappApp')
                 setPayment($scope.CONSTANT.CREDIT_CARD,'');
             }
               
-           
+            $scope.$on(checkoutConstant.LOGGED_IN,function(){
+                console.log("method called");
+                callSavedCardService();
+            });
             
             
             function showPopupIfApplicable(walProvider){
                
-                if($scope.checkIfSelectedInData(walProvider,$scope.walletTnc)==1)
+                if($scope.checkIfSelectedInData(walProvider,$scope.walletTnc)===1)
                     $scope.walletPopup=true;
             };
             
@@ -212,6 +212,8 @@ angular.module('newappApp')
                         }
                     }
                 }
+                console.log("printing wallet msg");
+                console.log($scope.walletMsg);
                 
             }
             function setPayment(tab_method, tab_provider) {
@@ -269,12 +271,12 @@ angular.module('newappApp')
                         
                     default:
                         data.paydebug = 'unknown-' + data.pay_method;
-                         if($scope.showSavedCard==true){
+                         if($scope.showSavedCard===true){
                             data.brand=$scope.brand;
                         }
                         break;
                 }
-                /*if ($scope.isCheckReliability == true)
+                /*if ($scope.isCheckReliability === true)
                 {
                     data.insuranceFee = $scope.checkout.details.fareDetails.insuranceFee;
                 }*/
@@ -288,7 +290,7 @@ angular.module('newappApp')
                 switch (tab) {
                     case $scope.CONSTANT.CREDIT_CARD: 
                         
-                        if($scope.showSavedCard==true){
+                        if($scope.showSavedCard===true){
                             tab_method=$scope.CONSTANT.EXPRESS;
                             setSavedCardProvider($scope.selectedCard.card_brand,$scope.selectedCard.card_type);
                         }
@@ -321,80 +323,81 @@ angular.module('newappApp')
             {
                 switch (brand){
                     case 'VISA':
-                        if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
+                        if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
                             changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_CC_VISA,brand);
-                        else if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DC_VISA,brand);
+                        else if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DC_VISA,brand);
                         else
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);
                         break;
                     case 'MASTERCARD':
-                        if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_CC_MASTER,brand);
-                        else if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DC_MASTER,brand);
+                        if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_CC_MASTER,brand);
+                        else if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DC_MASTER,brand);
                         else
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
                         break;
                     case 'AMEX':
-                        if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
+                        
+                        if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
                         {
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_CC_AMEX,brand);
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_CC_AMEX,brand);
                         }
-                        else if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
+                        else if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
                         {
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DC_AMEX,brand);
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DC_AMEX,brand);
                         }
                         else
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
                         break;
                     case 'DISCOVER':
-                        if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_CC_DISCOVER,brand);
-                        else if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DC_DISCOVER,brand);
+                        if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_CC_DISCOVER,brand);
+                        else if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DC_DISCOVER,brand);
                         else
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
                         break;
                     case 'UNIONPAY':
-                        if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_CC_UNIONPAY,brand);
-                        else if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DC_UNIONPAY,brand);
+                        if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_CC_UNIONPAY,brand);
+                        else if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DC_UNIONPAY,brand);
                         else
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);		
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);		
                         break;
                     case 'JCB':
-                        if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_CC_JCB,brand);
-                        else if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DC_JCB,brand);
+                        if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_CC_JCB,brand);
+                        else if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DC_JCB,brand);
                         else
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
                         break;
                     case 'LASER':
-                        if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_CC_LASER,brand);
-                        else if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DC_LASER,brand);
+                        if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_CC_LASER,brand);
+                        else if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DC_LASER,brand);
                         else
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
                         break;	
                     case 'DINERSCLUB':
-                        if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_CC_DINERS,brand);
-                        else if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DC_DINERS,brand);
+                        if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_CC_DINERS,brand);
+                        else if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DC_DINERS,brand);
                         else
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
                         break;
                     case 'MAESTRO':
-                        if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_CC_MAESTRO,brand);
-                        else if(card_type == $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DC_MAESTRO,brand);
+                        if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_CREDIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_CC_MAESTRO,brand);
+                        else if(card_type === $scope.CONSTANT.EXPRESS_CARD_TYPE_DEBIT)
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DC_MAESTRO,brand);
                         else
-                            changePaymentOption($scope.CONSTANT.PMT_EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
+                            changePaymentOption($scope.CONSTANT.EXPRESS, $scope.CONSTANT.EXPRESS_DEFAULT,brand);			    
                         break;			    			    		    			    			    			    			    			
                 }
 	       }
@@ -446,7 +449,7 @@ angular.module('newappApp')
                 console.log("prinitng post data");
                 console.log(postData);
                 var apiurl="";
-                /*if($scope.checkout.details.order_type==2){
+                /*if($scope.checkout.details.order_type===2){
                     apiurl="/api/transaction/checkoutHotels/";
                 }
                 else{*/
@@ -455,7 +458,7 @@ angular.module('newappApp')
                 CheckoutService.book(apiurl, $scope.token,  $scope.method, $scope.provider, browser, postData).then(function (response) {
                     console.log(response);
                     $scope.BookingResponse = response.data;
-                    if(response.data.success==true){
+                    if(response.data.success===true){
                         $scope.pgSubmission=$sce.trustAsHtml($scope.BookingResponse.data.pgFormData);
                        
                         if(document.getElementById("paymentForm")!=null){
@@ -479,7 +482,7 @@ angular.module('newappApp')
             }
             
             function addJuspaySubmitListener(){
-                if($scope.method=='express'){
+                if($scope.method==='express'){
                     Juspay.Setup({
                     payment_form: "#juspay_payment_form_express",
                     success_handler: function(status) {},
@@ -496,13 +499,39 @@ angular.module('newappApp')
             }
             
             function submitJuspayForm(){
-                if($scope.method=='express'){
+                if($scope.method==='express'){
                     console.log(document.getElementById("juspay_payment_form_express"));
                     document.getElementById("juspay_payment_form_express").submit();
                 }
                 else{
                     
                     document.getElementById("juspay_payment_form").submit();
+                }
+            }
+            
+            function callSavedCardService(){
+                CheckoutService.getSavedCards().then(function(response){
+                    $scope.SavedCards=response.data;
+                    //To be deleted
+                    $scope.SavedCards=[{"card_token":"e97f4671-b15a-4812-b879-3d6da2456157","card_reference":"bbcdac4bcd8e37118eeaa4f17eb36b73","card_number":"4929-XXXXXXXX-9309","card_isin":"492998","card_exp_year":"2018","card_exp_month":"04","card_type":"CREDIT","card_issuer":"BARCLAYS BANK PLC","card_brand":"VISA","nickname":"","name_on_card":"Test","expired":false,"card_fingerprint":"47sc2ipi182a6umkij41gs78b9"},{"card_token":"e97f4671-b15a-4812-b879-3d6da2456158","card_reference":"bbcdac4bcd8e37118eeaa4f17eb36b73","card_number":"4929-XXXXXXXX-9309","card_isin":"492998","card_exp_year":"2018","card_exp_month":"04","card_type":"CREDIT","card_issuer":"BARCLAYS BANK PLC","card_brand":"AMEX","nickname":"","name_on_card":"Test","expired":false,"card_fingerprint":"47sc2ipi182a6umkij41gs78b9"}];
+                    //End
+                    if(response.data!=""){
+                        $scope.showSavedCard=true;
+                        $scope.selectedCard={card_token:response.data[0].card_token,card_fingerprint:response.data[0].card_fingerprint, card_brand:response.data[0].card_brand, card_type: response.data[0].card_type};
+
+                        setSavedCardProvider($scope.selectedCard.card_brand,$scope.selectedCard.card_type);
+                    } 
+                    else{
+                        $scope.showSavedCard=false;
+                        $scope.selectedCard={};
+                    }
+
+                });
+            }
+            
+            function checkIfUserIsLoogedIn(){
+                if(document.cookie.indexOf(checkoutConstant.COOKIE_FOR_LOGGED_IN)>=0){
+                    callSavedCardService();
                 }
             }
            

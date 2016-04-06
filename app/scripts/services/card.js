@@ -14,6 +14,6 @@ angular.module('newappApp')
         "visa": "visa_cc.png",
         "amex": "amex_cc.png"
         
-    }
+    };
     return dictCardImg;
   });

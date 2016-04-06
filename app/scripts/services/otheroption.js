@@ -15,6 +15,6 @@ angular.module('newappApp')
         "iob_nb":"iob.jpg",
         "pnbra_nb":"pnb.jpg",
         "paypal_int":"paypal_logo.png"
-    }
+    };
     return dictOtherOptionImg;
   });

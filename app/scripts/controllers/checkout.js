@@ -7,13 +7,14 @@
  * # CheckoutCtrl
  * Controller of the newappApp
  */
-var url = "http://dev.travelyaari.com";
+
 angular.module('newappApp')
-  .controller('CheckoutCtrl', ['$scope', '$location', 'CheckoutService', 'checkoutDetailData','checkoutConstant', function ($scope, $location, CheckoutService,  checkoutDetailData,checkoutConstant) {
+  .controller('CheckoutCtrl', ['$scope', '$location','$rootScope', 'CheckoutService', 'checkoutDetailData','checkoutConstant','FACEBOOK_CONSTANTS', 'GOOGLE_CONSTANTS', function ($scope, $location,$rootScope, CheckoutService,  checkoutDetailData,checkoutConstant,FACEBOOK_CONSTANTS, GOOGLE_CONSTANTS) {
+      
     $scope.token='8134bb03f3a22101e53c083939b1f653_8091317_605';
     $scope.tabInfo = false;
     $scope.checkoutDetailsData = checkoutDetailData;
-    $scope.customerDetail = {name:"",email:"",mobile:"",coupon:"",discount:0};
+    $scope.customerDetail = {name:null,email:null,mobile:"",coupon:"",discount:0};
     $scope.isCheckedReliability = true;
     
     CheckoutService.getOrderDetails(8001).then(function (response) {
@@ -42,5 +43,63 @@ angular.module('newappApp')
         return (arDate[2] + " " + (monthNames[new Date(arDate[1]).getMonth()]) + ", " + arDate[0]);
 
     }
+      
+      
+    //Login integration
+    $scope.loginDetail={email:null,password:null};
+    $scope.popup = {
+        isOpen: false
+    };
 
+    $rootScope.popUpVisibility = function(bool) {
+        $scope.popup.isOpen = bool;
+    };
+
+    $scope.preventBubble = function(event) {
+        event.stopPropagation();
+    };
+      
+    $scope.$on(FACEBOOK_CONSTANTS.SIGN_IN_LISTENER, function(event, response, meresponse) {
+        console.log(response);
+        console.log(meresponse);
+        if(response.authResponse!==undefined){
+            console.log("facebook logged in");
+            $scope.$broadcast(checkoutConstant.LOGGED_IN);
+        }
+    });
+
+    $scope.$on(GOOGLE_CONSTANTS.SIGN_IN_LISTENER, function(event, response, meresponse) {
+        console.log(response);
+        console.log(meresponse);
+        if(response.El!==null){
+            console.log("gmail logged in");
+            $scope.$broadcast(checkoutConstant.LOGGED_IN);
+        }
+    });
+      
+    $scope.signIn=function(email,password){
+        
+        if(email!==null && password!==null){
+            
+            var postData={email:email,password:password,remember:false};
+            CheckoutService.checkLogin(postData).then(function(loginResponse){
+                console.log(loginResponse.data);
+                if(loginResponse.data.success===true){
+                    $rootScope.loggedIn=true;
+                    $scope.popup.isOpen=false;
+                    $scope.$broadcast(checkoutConstant.LOGGED_IN);
+                }
+            });
+        }
+    };
+      
+    $scope.login = {
+        isOpen: true
+    };
+
+    $scope.signInShow = function(e, bool) {
+        e.preventDefault();
+        $scope.login.isOpen = bool;
+    };
+    
 }]);

@@ -24,7 +24,7 @@
 
             <div ng-show="isSelected(CONSTANT.CREDIT_CARD)">
                 <div class="debitTop">
-                    <div class="securedLeft"> <!--<img src="images/secured.png" alt="Secured">--><ty-show-img-on-load imgsrc="images/secured.png" class="ty-smooth-load"></ty-show-img-on-load> </div>
+                    <div class="securedLeft"> <img src="images/secured.png" alt="Secured"><!--<ty-show-img-on-load imgsrc="images/secured.png" class="ty-smooth-load"></ty-show-img-on-load>--> </div>
                     <div class="securedInfo">
                         <p>Secured Debit / Credit Card Payment</p>
                         <p><span>This is a secure 128-bit SSL encrypted payment</span></p>
@@ -34,7 +34,7 @@
                 <!--End Trust Part-->
 
                 <div class="debitInfo" ng-show="!showSavedCard">
-                    <input class="cardno" id="cardno" placeholder="Credit / Debit Card No" type="Credit / Debit Card No" name="cardno" ng-model="ccinfo.securityCode" ng-required="isSelected(CONSTANT.CREDIT_CARD)&&!showSavedCard" data-ng-pattern="/^[0-9]+$/" data-credit-card-type  ng-style="{'background':'url(/images/'+Card[ccinfo.type]+') no-repeat center right'}">
+                    <input class="cardno" id="cardno" placeholder="Credit / Debit Card No" type="Credit / Debit Card No" name="cardno" ng-model="ccinfo.securityCode" ng-required="isSelected(CONSTANT.CREDIT_CARD)&&!showSavedCard" data-ng-pattern="/^[0-9]+$/" data-credit-card-type ccinfotype='ccinfo.type' ng-style="{'background':'url(/images/'+Card[ccinfo.type]+') no-repeat center right'}">
                    <!-- <span class="cardType"><img src="images/{{ccinfo.type}}.png"/></span>-->
                    <!-- <div ng-messages="tabForm.cardno.$error" ng-if="tabForm.cardno.$dirty">
                         <p ng-message="required" class="errMsg">This is required</p>
@@ -51,10 +51,10 @@
                         <li ng-show="tabForm.debitUser.$error.required" class="errMsg">Name required</li>
                     </ul>
                     
-                    <input class="debitMonth" id="debitMonth" placeholder="MM" type="5s6s5s5s5" ng-required="isSelected(CONSTANT.CREDIT_CARD)&&!showSavedCard" name="debitMonth" ng-model="ccinfo.month"  data-card-expiration ng-pattern="/^[0-1]+[0-9]+$/" ng-maxlength="2"  ng-minlength="2" ng-keypress="checkKeyPressed($event)">
+                    <input class="debitMonth" id="debitMonth" placeholder="MM" type="5s6s5s5s5" ng-required="isSelected(CONSTANT.CREDIT_CARD)&&!showSavedCard" name="debitMonth" ng-model="ccinfo.month"  data-card-expiration ccinfomonth="ccinfo.month" ccinfoyear="ccinfo.year" ng-pattern="/^[0-1]+[0-9]+$/" ng-maxlength="2"  ng-minlength="2" ng-keypress="checkKeyPressed($event)">
                     <div class="debitsep"><img src="images/debt-sep.png" alt="Sep"></div>
                     <input class="debitMonth" id="debitYear" placeholder="YY" type="5s6s5s5s5" name="debitYear" ng-required="isSelected(CONSTANT.CREDIT_CARD)&&!showSavedCard"  ng-minlength="4" ng-maxlength="4"  ng-model="ccinfo.year" ng-keypress="checkKeyPressed($event)">
-                    <input class="debitCvv" id="debitCVV" placeholder="CVV" type="5s6s5s5s5" ng-required="isSelected(CONSTANT.CREDIT_CARD)&&!showSavedCard" name="debitCvv" ng-model="ccinfo.cvv" ng-keypress="checkKeyPressed($event)" data-card-cvv>
+                    <input class="debitCvv" id="debitCVV" placeholder="CVV" type="5s6s5s5s5" ng-required="isSelected(CONSTANT.CREDIT_CARD)&&!showSavedCard" name="debitCvv" ng-model="ccinfo.cvv" ng-keypress="checkKeyPressed($event)" data-card-cvv ccinfotype="ccinfo.type" watchrequired="false">
                     <ul ng-show="tabForm.submitAttempt && !tabForm.$valid" style="float:right;width:35%;color:red;">
                         <li ng-show="tabForm.debitCvv.$error.required"  >CVV required</li>
                         <li ng-show="tabForm.debitCvv.$error.invalid"  >Invalid CVV</li>
@@ -84,12 +84,12 @@
                         <div class="cardTitle-left">
                             <h4>Your Saved Card</h4>
                         </div>
-                        <div class="cardTitle-right"  ng-click="addMoreCard();">
+                        <div class="cardTitle-right"  ng-click="tabForm.submitAttempt=false;addMoreCard();">
                             <img src="images/add-card.png" alt="Add More Card">
                             <p><a href class="blackLink">Add More</a></p>
                         </div>
                     </div>
-                    <div class="debitInfo" ng-repeat="savedCard in SavedCards track by $index" ng-if="deletedCards.indexOf(savedCard.card_token)==-1">
+                    <div class="debitInfo" ng-repeat="savedCard in SavedCards track by $index">
                         <div class="savedcard-section">
                             <div class="radio_wrapper" style="margin-top:23px;">
                                 <input type="radio" name="selectedCard" ng-checked="selectedCard.card_token==savedCard.card_token" ng-click="selectCard(savedCard);"/>
@@ -100,7 +100,7 @@
                                 <img src="images/payment-delete.png" alt="Remove this Card">
                                 <p><a href class="blackLink">Remove this Card</a></p>
                             </div>
-                            <input class="debitCvv" placeholder="CVV" type="5s6s5s5s5" ng-required="isSelected(CONSTANT.CREDIT_CARD)&& showSavedCard && selectedCard.card_token==savedCard.card_token" ng-model="selectedCard.cvv[savedCard.card_token]">
+                            <input class="debitCvv" placeholder="CVV" type="5s6s5s5s5"  ng-model="selectedCard.cvv[savedCard.card_token]" ng-required="isSelected(CONSTANT.CREDIT_CARD)&& showSavedCard==true && selectedCard.card_token==savedCard.card_token"/>
 
                         </div>
                        
@@ -141,7 +141,7 @@
             <div ng-show="isSelected(CONSTANT.WALLET)">
                 <div class="wallet-wrapper" ng-show="!walletPopup">
                     <ul>
-                        <li ng-repeat="(walProvider,walName) in payment.options.wallet.previlaged" ng-class="{option_select:isWalletOptionSelected(walProvider)}" ng-click="selectWallet(walProvider)">
+                        <li ng-repeat="(walProvider,walName) in payment.options.wallet.previlaged" ng-class="{option_select:isWalletOptionSelected(walProvider)}" ng-click="selectWallet(walProvider)" class="wallet-privledge">
                             <a href>
                                 <img src="images/{{Wallet[walProvider]}}" alt="{{walName}}">
                                 <p>{{::walletMsg[walProvider]}}</p>

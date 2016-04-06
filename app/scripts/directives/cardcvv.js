@@ -9,24 +9,29 @@
 angular.module('newappApp')
   .directive('cardCvv',['cardConstant', function (cardConstant) {
      var directive =
-        { require: 'ngModel'
-        , link: function(scope, elm, attrs, ctrl){
-             scope.$watch('[ccinfo.type]',function(newval,oldval){
-                 if(scope.ccinfo.cvv!=null){
-                    checkValue(scope.ccinfo.cvv);
-                 }
-             },true);
-            
+        { require: 'ngModel',
+         scope: {
+              ccinfotype: "=",
+              
+            },
+         link: function(scope, elm, attrs, ctrl){
+             
             ctrl.$parsers.unshift(function(value){
-            
+                
+                scope.$watch('ccinfotype',function(){
+                     if(value!=null){
+                        checkValue(value);
+                     }
+                 },true);
+                
                 checkValue(value);        
 
                 return value;
                 
-            })
+            });
             function checkValue(value){
-                console.log(value+" "+scope.ccinfo.type+" "+validateCardCVV(value,scope.ccinfo.type));
-                    ctrl.$setValidity('invalid',validateCardCVV(value,scope.ccinfo.type));
+                
+                ctrl.$setValidity('invalid',validateCardCVV(value,scope.ccinfotype));
                      
             }
         

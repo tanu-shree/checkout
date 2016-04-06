@@ -26,11 +26,12 @@
         <div class="topRight">
             <div class="topNo">(080) - 44820000</div>
             <div class="topPlace"><a href class="blackLink">Bangalore</a></div>
-            <div class="logIn"><a href class="blackLink" ng-click="changeLoginDisplay()">Log In / Sign Up</a></div>
+            <div class="logIn"><a href class="blackLink" ng-click="popUpVisibility(true)" ng-show="!loggedIn">Log In / Sign Up</a></div>
+            <div class="logIn"><a href class="blackLink" ng-click="loggedIn=false;logOut();" ng-show="loggedIn">Signout</a></div>
         </div>
     </div>
-    
-    <ty-login ng-show="loginShow"></ty-login>
+   
+
 </header>
 
     
@@ -62,6 +63,8 @@
     <script src="bower_components/juspay/jquery-1.8.3.min.js"></script>
     <script src="bower_components/juspay/juspay.js"></script>
     <script src="bower_components/resourceLoader/src/imageloader.js"></script>
+    <script src="bower_components/angularSocialLogins/scripts/social.js"></script>
+    <script src="bower_components/angularSocialLogin/scripts/social.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

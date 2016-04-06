@@ -15,13 +15,15 @@ angular.module('newappApp')
         controller: ['$scope','CheckoutService',  function ($scope,CheckoutService) {
             $scope.firstSection = true;
             $scope.confirmBooking = function () {
-                if ($scope.customerDetail.email != null && $scope.customerDetail.mobile != null) {
-                    $scope.firstSection = false;
-                    $scope.tabInfo = true;
-                   
-                    var myEl = angular.element( document.querySelector( '.paymentMethod' ) );
-                    myEl.removeAttr('style');
-                }
+               
+                    
+                    if ($scope.customerDetail.email != null && $scope.customerDetail.mobile != null) {
+                        $scope.firstSection = false;
+                        $scope.tabInfo = true;
+
+                        var myEl = angular.element( document.querySelector( '.paymentMethod' ) );
+                        myEl.removeAttr('style');
+                    }
                 
                 
             };

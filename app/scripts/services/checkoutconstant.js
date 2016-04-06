@@ -41,5 +41,7 @@ angular.module('newappApp')
     'BUS':'bus',
     'HOTEL':'hotel',
     'TOUR':'tour',
-    'ACTIVITY':'activity'
+    'ACTIVITY':'activity',
+    'LOGGED_IN':'logged_in',
+    'COOKIE_FOR_LOGGED_IN':'_ga'
 });

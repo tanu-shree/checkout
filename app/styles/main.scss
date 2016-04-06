@@ -1,5 +1,9 @@
 // bower:scss
 @import "resourceLoader/src/imageloader.scss";
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "font-awesome/scss/font-awesome.scss";
+@import "angularSocialLogins/styles/main.scss";
+@import "angularSocialLogin/styles/main.scss";
 // endbower
 
 //colors
@@ -245,12 +249,9 @@ body {
 		width: 100%;
 		float: left;
 		margin-top: 20px;
-         /*-webkit-transition: all 0.7s ease-out;
-       -moz-transition: all 0.5s ease-out;
-        -ms-transition: all 0.5s ease-out;
-         -o-transition: all 0.5s ease-out;
-            transition: all 0.5s ease-out;*/
-        transition: all linear 0.5s;
+        -webkit-transition: all linear 0.2s;
+       -moz-transition: all linear 0.2s;
+        transition: all linear 0.2s;
 	}
 	.paymentTitle {
 		width: 97%;
@@ -749,6 +750,7 @@ body {
 		border-left: solid 1px $color_concrete_approx;
 		margin-top: 40px;
 		border-top: solid 1px $color_concrete_approx;
+        
 		ul {
 			margin: 0;
 			li {
@@ -763,13 +765,13 @@ body {
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				&:first-child {
+				/*&:first-child {
 					width: 44.2%;
 					text-align: left;
 					display: inline-block;
 					padding: 20px 0 0 5%;
 					height: 84px;
-				}
+				}*/
 				&:hover {
 					//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 					box-shadow: 0 0 10px $black_60;
@@ -790,6 +792,27 @@ body {
 				color: $color_storm_dust_approx;
 			}
 		}
+        .wallet-privledge{
+        
+				height: 104px;
+				position: relative;
+				float: left;
+				cursor: pointer;
+				border: solid 1px $color_concrete_approx;
+				border-left: none;
+				border-top: none;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				
+                width: 44.2%;
+                text-align: left;
+                display: inline-block;
+                padding: 20px 0 0 5%;
+                height: 84px;
+				
+			
+        }
 	}
 	.action-wrapper {
 		width: 100%;
@@ -880,9 +903,9 @@ body {
 		margin-top: 20px;
 	}
 
-input:valid::-webkit-input-placeholder {
+/*input:valid::-webkit-input-placeholder {
 	@extend %extend_1;
-}
+}*/
 .clearfix:after {
 	clear: both;
 	content: ".";
@@ -973,127 +996,17 @@ form.submitted .ng-invalid {
 	border: 1px solid $red;
 }
 
-
-/*.active-screen{
-	width:99999px;
-	height:99999px;
-	background-color: gray;
-	position:fixed;
-	top:0px;
-	left:0px;
-	z-index:100;
-	opacity:0.6;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-	filter: alpha(opacity=60);
-	-moz-opacity: 0.6;
-	-khtml-opacity: 0.6;
-
-}*/
-//login page
-
-/*.loginContent{
-    position:absolute;
-    z-index:100;
-    left:25%;
-    display:block;
-    top:20%;
-    padding: 10px 30px;
-    min-width: 560px;
-    max-width: 600px;
-    color: #555;
-    font-size: 10.5px;
-    line-height: 12px;
-    direction: ltr;
-    box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-    overflow: hidden;
-    background-color: white;
+.user-popup {
+    z-index: 2;
+    & *,
+    & *:before,
+    & *:after {
+        box-sizing: border-box !important;
+    }
+    button{padding: 0px;}
     
-    .close{
-        position: absolute;
-        width: 22px;
-        height: 22px;
-        float: right;
-        top: 5%;
-        left: 95%;
-    }
-    
-    .leftLogin{
-        float:left;
-    }
-    .title {
-  	    font-size: 14px;
-  	    line-height: 19px;
-    }
-    .clearfix {
-        display: block;
-    }
-    .padT15 {
-        padding-top: 15px;
-    }
-    .label {
-        width: 80px;
-        font-size: 14px;
-        line-height: 32px;
-    }
-    .padT20 {
-        padding-top: 20px;
-    }
-    .extra {
-        margin-top: 8px;
-    }
-    .split {
-        font-size: 13px;
-        margin-left: 32px;
-        margin-right: 20px;
-    }
-    .separator {
-        height: 90px;
-        border-left: 1px solid #ccc;
-    }
-
-    .or {
-        margin-left: -10px;
-        padding: 4px 0;
-        color: #777;
-    }
-
-.social-login {
-    font-size: 13px;
-    margin-top: 57px;
-    width:36%;
 }
-.fb-login {
-    margin-bottom: 20px;
-    text-align: center;
-    cursor: pointer;
-}
-    .social-login .fb-login {
-        margin-bottom: 20px;
-    }
-    .fb-login {
-        text-align: center;
-        cursor: pointer;    
-    }
-    .zocial {
-        width: 100%;
-    }
-    .zocial.google {
-        background-color: #4863ae;
-    }
-    .primary-btn {
-        padding: 6px 22px;
-        width: 210px;
-        background: #f04e37;
-        border-radius: 3px;
-        border: 1px solid #da4b37;
-        display: inline-block;
-        color: #fff;
-        font-size: 15px;
-        text-decoration: none;
-        cursor: pointer;
-        margin: 0;
-    }
-}*/
+
 
 .wallet-popup {
 		width: 97%;
@@ -1283,22 +1196,6 @@ form.submitted .ng-invalid {
   cursor: pointer;
 }
 
-
-.wallet-popup.ng-hide-add , .wallet-popup.ng-hide-remove{
-   -webkit-transition: all 0.7s ease-out;
-       -moz-transition: all 0.5s ease-out;
-        -ms-transition: all 0.5s ease-out;
-         -o-transition: all 0.5s ease-out;
-            transition: all 0.5s ease-out;
-}
-
-.wallet-wrapper.ng-hide {
-   -webkit-transition: all 0.7s ease-out;
-       -moz-transition: all 0.5s ease-out;
-        -ms-transition: all 0.5s ease-out;
-         -o-transition: all 0.5s ease-out;
-            transition: all 0.5s ease-out;
-}
 
 
 .wallet-popup.ng-hide {

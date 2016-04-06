@@ -9,20 +9,26 @@
 angular.module('newappApp')
   .directive('creditCardType',['cardConstant', function (cardConstant) {
     var directive =
-        { require: 'ngModel'
+        { require: 'ngModel',
+         scope: {
+              ccinfotype: "=",
+              
+            }
         , link: function(scope, elm, attrs, ctrl){
              var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; }
             ctrl.$parsers.unshift(function(value){
                 
-                scope.ccinfo.type=cardType(value);
+                //scope.ccinfo.type=cardType(value);
+                scope.ccinfotype=cardType(value);
                 ctrl.$setValidity('invalid',validateCardNumber(value));
-                console.log(scope.ccinfo.type);
-               //ctrl.$setValidity('invalid',!!scope.ccinfo.type);
-                var clean = value.replace( /[^0-9]+/g, '');
                 
+               
+                var clean = value;//value.replace( /[^0-9]+/g, '');
+                //var len=(value.replace( /[^0-9]+/g, '')).length;
                 
-                //clean=clean+' ';
-                //console.log(clean+" ");
+                /*if(len%4==0){
+                clean=clean+'-';}*/
+                
                 ctrl.$setViewValue(clean);
                 ctrl.$render();
                 return clean;

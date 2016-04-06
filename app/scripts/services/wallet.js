@@ -13,7 +13,6 @@ angular.module('newappApp')
         "mobikwik_wallet": "mobikwik-logo.jpg",
         "paytm_wallet": "paytm-logo.jpg",
         "payu_wallet": "payumoney.jpg",
-        "payzippy_wallet": "payzippy.jpg",
         "airmo_cashc": "airtelmoney.jpg",
         "freecharge_wallet": "freecharge-wallet.jpg",
         "icash_cashc": "icashcard.jpg",
@@ -21,6 +20,6 @@ angular.module('newappApp')
         "oxi_cashc": "oxigen.jpg",
         "payc_cashc": "paycash.png",
         "payzippy_wallet":"payzippy.png"
-    }
+    };
     return dictWalletImg;
   });
