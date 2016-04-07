@@ -120,7 +120,7 @@
 
                     <div class="banklogo-wrapper">
                         <ul>
-                            <li ng-repeat="(nbProvider,nbName) in payment.options.nb.popular" ng-click="selectBank_popular(nbProvider);" ng-class="{option_select:isNetBankOptionSelected(nbProvider)}">
+                            <li ng-repeat="(nbProvider,nbName) in ::payment.options.nb.popular" ng-click="selectBank_popular(nbProvider);" ng-class="{option_select:isNetBankOptionSelected(nbProvider)}">
                                 <a href><img ng-src="images/{{::NetBank[nbProvider]}}" alt="{{::nbName}}"></a>
                             </li>
                             
@@ -130,7 +130,7 @@
                     <div class="or-wrapper">
                         <p>or</p>
                     </div>
-                    <select id="nbBank" name="nbBank" class="selectBank" ng-model="data.repeatSelect" ng-options="nbProvider as nbName for (nbProvider,nbName) in payment.options.nb.all" ng-change="selectBank_all(data.repeatSelect);">
+                    <select id="nbBank" name="nbBank" class="selectBank" ng-model="data.repeatSelect" ng-options="nbProvider as nbName for (nbProvider,nbName) in ::payment.options.nb.all" ng-change="selectBank_all(data.repeatSelect);">
                         
                         <option></option>
 
@@ -141,16 +141,16 @@
             <div ng-show="isSelected(CONSTANT.WALLET)">
                 <div class="wallet-wrapper" ng-show="!walletPopup">
                     <ul>
-                        <li ng-repeat="(walProvider,walName) in payment.options.wallet.previlaged" ng-class="{option_select:isWalletOptionSelected(walProvider)}" ng-click="selectWallet(walProvider)" class="wallet-privledge">
+                        <li ng-repeat="(walProvider,walName) in ::payment.options.wallet.previlaged" ng-class="{option_select:isWalletOptionSelected(walProvider)}" ng-click="selectWallet(walProvider)" class="wallet-privledge">
                             <a href>
-                                <img src="images/{{Wallet[walProvider]}}" alt="{{walName}}">
+                                <img src="images/{{::Wallet[walProvider]}}" alt="{{::walName}}">
                                 <p>{{::walletMsg[walProvider]}}</p>
                                 <p><span>{{::walletSubtitle[walProvider]}}</span></p>
                             </a>
                         </li>
                         
-                        <li ng-repeat="(walProvider,walName) in payment.options.wallet.all" ng-if="::checkIfSelectedInData(walProvider,payment.options.wallet.previlaged)!=1" ng-class="{option_select:isWalletOptionSelected(walProvider)}" ng-click="selectWallet(walProvider)">
-                            <a href><img ng-src="images/{{Wallet[walProvider]}}" alt="{{walName}}"></a>
+                        <li ng-repeat="(walProvider,walName) in ::payment.options.wallet.all" ng-if="::checkIfSelectedInData(walProvider,payment.options.wallet.previlaged)!=1" ng-class="{option_select:isWalletOptionSelected(walProvider)}" ng-click="selectWallet(walProvider)">
+                            <a href><img ng-src="images/{{::Wallet[walProvider]}}" alt="{{::walName}}"></a>
                             <div class="wallet-strip">{{::walletMsg[walProvider]}}</div>
                         </li>
 
@@ -186,7 +186,7 @@
                 <div class="otherpay-wrapper">
                     <div class="banklogo-wrapper">
                         <ul>
-                            <li ng-repeat="(opProvider,opName) in payment.options.op.all" ng-if="::checkIfSelectedInData(opProvider,payment.options.op.others)!=1" ng-class="{option_select:isOtherOptionSelected(opProvider)}" ng-click="selectOtherOption(opProvider)">
+                            <li ng-repeat="(opProvider,opName) in ::payment.options.op.all" ng-if="::checkIfSelectedInData(opProvider,payment.options.op.others)!=1" ng-class="{option_select:isOtherOptionSelected(opProvider)}" ng-click="selectOtherOption(opProvider)">
                                 <a href><img src="images/{{::OtherOption[opProvider]}}" alt="{{::opProvider}}"></a>
                             </li>
                         </ul>
@@ -200,7 +200,7 @@
                                 <a href><img src="images/mobikwik-logo.jpg" alt="Ola Money Wallet Offer"></a>
                                 <p>Total charges including forex and transaction fees: {{paypalAmount}}</p>
                             </li>-->
-                            <li ng-repeat="(opProvider,opName) in payment.options.op.others" ng-class="{option_select:isOtherOptionSelected(opProvider)}" ng-click="selectOtherOption(opProvider)">
+                            <li ng-repeat="(opProvider,opName) in ::payment.options.op.others" ng-class="{option_select:isOtherOptionSelected(opProvider)}" ng-click="selectOtherOption(opProvider)">
                                 <a href><img src="images/{{::OtherOption[opProvider]}}" alt="{{::opProvider}}"></a>
                                 <p>Total charges including forex and transaction fees: {{paypalAmount}}</p>
                             </li>
