@@ -10,7 +10,6 @@
     "angular-touch": "^1.4.0",
     "juspay": "https://github.com/tanu-shree/juspay.git#^0.0.5",
     "resourceLoader": "^0.0.3",
-    "angularSocialLogins": "https://github.com/jesselty/angularSocialLogins.git",
     "angularSocialLogin": "^0.0.6"
   },
   "devDependencies": {

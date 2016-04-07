@@ -172,7 +172,7 @@ angular.module('newappApp')
                     var postData = getPaymentPostData();
                     
                     var browser = "";//detectBrowser();
-                   // executeBooking(postData,browser);
+                    executeBooking(postData,browser);
                     //addJuspaySubmitListener();
                     //submitJuspayForm();
                 }

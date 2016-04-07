@@ -18,7 +18,7 @@ angular
     'resource.loader',
     'user.auth'
   ])
-  .config(['$routeProvider','userauthProvider',function ($routeProvider,userauthProvider) {
+  .config(['$routeProvider','$locationProvider','userauthProvider',function ($routeProvider,$locationProvider,userauthProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -38,6 +38,8 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+      
+      $locationProvider.html5Mode(true);
       
       userauthProvider.setFbSettings({
             appId: '1168184359859767',

@@ -2,7 +2,6 @@
 @import "resourceLoader/src/imageloader.scss";
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 @import "font-awesome/scss/font-awesome.scss";
-@import "angularSocialLogins/styles/main.scss";
 @import "angularSocialLogin/styles/main.scss";
 // endbower
 
@@ -998,12 +997,15 @@ form.submitted .ng-invalid {
 
 .user-popup {
     z-index: 2;
+    
     & *,
     & *:before,
     & *:after {
         box-sizing: border-box !important;
     }
     button{padding: 0px;}
+    .social-logins{float: right;padding-top:10%;}
+    .user-social{font-size:13px;}
     
 }
 

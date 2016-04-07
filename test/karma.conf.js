@@ -29,7 +29,6 @@ module.exports = function(config) {
       'bower_components/juspay/jquery-1.8.3.min.js',
       'bower_components/juspay/juspay.js',
       'bower_components/resourceLoader/src/imageloader.js',
-      'bower_components/angularSocialLogins/scripts/social.js',
       'bower_components/angularSocialLogin/scripts/social.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower

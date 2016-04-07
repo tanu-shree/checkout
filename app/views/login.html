@@ -1,67 +1,46 @@
-<div class="active-screen"></div>
-<div id="loginContent" class="loginContent">
-	<div class="title">Sign In</div>
-    <div class="close" ng-click="closeLogin()">X</div>
-	<div class="standard-login leftLogin">
-		<form id="loginForm">
-			<div class="form-row padT15 clearfix">
-				<div class="leftLogin label">
-					<label for="loginEmail">Email</label>
-				</div>
-				<div class="leftLogin">
-					<input id="loginEmail" type="text" placeholder="Enter your email" value="" name="email" maxlength="50" autocomplete="off" style="width: 200px;padding-left: 5px;" ng-model="loginInfo.email">
-				</div>
-			</div>
-			<div class="form-row padT15 clearfix">
-				<div class="leftLogin label">
-					<label for="loginPassword">Password</label>
-				</div>
-				<div class="leftLogin">	
-					<input id="loginPassword" type="password" placeholder="Enter your password"  value="" name="password" maxlength="50" autocomplete="off" style="width: 200px;padding-left: 5px;" ng-model="loginInfo.password">
-				</div>
-			</div>
-			<!--
-			<div class="form-row padT15 clearfix">
-				<div class="left label">
-					<label>&nbsp;</label>
-				</div>
-				<div class="left">
-					<input type="checkbox" id="rememberMe" class="checkbox left" name="remember">
-					<label for="rememberMe" class="left">Remember me</label> 
-				</div>
-			</div>
-			-->
-			<div class="form-row padT20 clearfix">
-				<div class="leftLogin label">
-					<label>&nbsp;</label>
-				</div>
-				<div class="leftLogin">
-					<button type="button" id="loginSubmit" class="primary-btn" ng-click="signIn()">Sign In</button>
-					<div class="loadingBar right" id="loginSubmitWait" style="display:none"><span>Signing in...</span></div>
-				</div>
-			</div>
-			<div class="extra clearfix">
-				<div class="leftLogin label">
-					<label>&nbsp;</label>
-				</div>
-				<div class="leftLogin">
-					<div><a href="javascript:void(0);" id="forgotPassword">Forgot your password?</a></div>
-					<div class="msg"></div>
-				</div>
-			</div>
-		</form>
-	</div>
-	<div class="split leftLogin">
-		<div class="separator"></div>
-		<div class="or">OR</div>
-		<div class="separator"></div>
-	</div>
-	<div class="social-login leftLogin">
-		<div class="fb-login">
-			<button id="fbLoginBtn" class="zocial facebook">Sign In with Facebook</button>
-		</div>
-		<div class="google-login">
-			<button id="googleLoginBtn" class="zocial google">Sign In with Google</button>
-		</div>
-	</div>
-</div>
+<user-popup settings="popup" ng-click="popUpVisibility(false)">
+    <div class="inner-popup">
+        <span class='close' ng-click="popUpVisibility(false)">&#10005;</span>
+        <div ng-show="login.isOpen">
+            <strong>Sign In</strong>
+            <div class="ty-auth-wrapper auth-wrapper">
+                <form name="signin" class="ty-form signin-form">
+                    <label class="ty-input-block">
+                        <span class="ty-user-label">Email</span>
+                        <input class="ty-user-input" type="email" placeholder="Enter your email" required="true" ng-model="loginDetail.email"/>
+                    </label>
+                    <label class="ty-input-block">
+                        <span class="ty-user-label">Password</span>
+                        <input class="ty-user-input" type="password" placeholder="Enter your password" required="true" ng-model="loginDetail.password" />
+                    </label>
+                    <div class="ty-alignright-block">
+                        <button class="ty-alignright ty-user-button" ng-click="signIn(loginDetail.email,loginDetail.password);">Sign In</button>
+                    </div>
+                    <div class="ty-alignright-block forgot-pswd-block">
+                        <a class="ty-alignright ty-forgot-password" ng-click="signInShow($event, false)">Forgot your password?</a>
+                    </div>
+                </form>
+                <div class="social-logins">
+                    <user-fb>Sign In with Facebook</user-fb>
+                    <user-gmail>Sign In with Gmail</user-gmail>
+                </div>
+            </div>
+        </div>
+        <div ng-show="!login.isOpen">
+            <strong>Forgot Password</strong>
+            <div class="ty-note note-message">Please enter your email address below. We'll send you an email with a link to reset password.</div>
+            <div class="ty-auth-wrapper auth-wrapper">
+                <form name="signin" class="ty-form forgotpwd-form">
+                    <label class="ty-input-block">
+                        <span class="ty-user-label">Email</span>
+                        <input class="ty-user-input" type="email" placeholder="Enter your email" required="true" />
+                    </label>
+                    <div class="ty-alignright-block">
+                        <button class="ty-alignright ty-user-button">Sign In</button>
+                    </div>
+                </form>
+            </div>
+            <span class="ty-back forgotpwd-back" ng-click="signInShow($event, true)">&lt;&lt; Back</span>
+        </div>
+    </div>
+</user-popup>
