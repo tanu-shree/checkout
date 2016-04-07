@@ -95,7 +95,7 @@
                                 <input type="radio" name="selectedCard" ng-checked="selectedCard.card_token==savedCard.card_token" ng-click="selectCard(savedCard);"/>
                                 <label></label>
                             </div>
-                            <input class="saved-cardno" type="Credit / Debit Card No" ng-model="savedCard.card_number" ng-style="{'background':'url('+cardUrl+') no-repeat center right'}" readonly>
+                            <input class="saved-cardno" type="Credit / Debit Card No" value="{{::savedCard.card_number}}" ng-style="{'background':'url('+cardUrl+') no-repeat center right'}" readonly>
                             <div class="remove-card" ng-click="removeSavedCard(savedCard)">
                                 <img src="images/payment-delete.png" alt="Remove this Card">
                                 <p><a href class="blackLink">Remove this Card</a></p>
@@ -156,31 +156,8 @@
 
                     </ul>
                 </div>
-                <div class="wallet-popup" ng-show="walletPopup">
-                    
-                    <div class="wallet-pop-left">
-                        <img src="images/{{Wallet[provider]}}">
-                    </div>
-                    <div class="wallet-pop-right">
-                        <div style="float:left;width:95%;">
-                            <p>{{walletMsg[provider]}}</p>
-                            <span>{{walletSubtitle[provider]}}</span>
-                        </div>
-                        <div ng-click="walletPopup=false" style="cursor:pointer;">X</div>
-                    </div>
-                    <div style="border-bottom: solid 1px #ddd;float:left;width:100%;padding-top:2%;"></div>
-                    <div class="wallet-pop-body">
-                        <p>You have selected {{payment.options.wallet.all[provider]}}</p>  
-                        <div class="wallet-terms">
-                            <div>
-                                Plese read the terms and condition
-                            </div>
-                            <div ng-bind-html="walletTnc[provider]">
-                           
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ty-wallet-offers walletmsg="walletMsg[provider]" walletsubtitle="walletSubtitle[provider]" wallettnc="walletTnc[provider]" walletname="payment.options.wallet.all[provider]" walletimg="Wallet[provider]" show="walletPopup"></ty-wallet-offers>
+                
             </div>
             <div ng-show="isSelected(CONSTANT.OTHER_OPTION)">
                 <div class="otherpay-wrapper">

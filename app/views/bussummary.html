@@ -14,12 +14,12 @@
             </p>
             <div id="onwardTripDetails" ng-show="onwardOpen">
                 <div class="tripBox">
-                    <p>{{::summary.onwards.fromCity}}</p>
+                    <p>{{::summary.onwards.fromCity|capitalize}}</p>
                     <p>{{::summary.onwards.journeyDate}}</p>
                 </div>
                 <div class="tripSep"><img src="images/direction.png" alt="To"></div>
                 <div class="tripBox">
-                    <p>{{::summary.onwards.toCity}}</p>
+                    <p>{{::summary.onwards.toCity|capitalize}}</p>
                     <p>{{::CheckoutDetail.journeyDate2}}</p>
                 </div>
                 <div class="clearfix"></div>
@@ -46,12 +46,12 @@
             </p>
             <div id="returnTripDetails" ng-show="returnOpen">
                 <div class="tripBox">
-                    <p>{{::summary.return.fromCity}}</p>
+                    <p>{{::summary.return.fromCity|capitalize}}</p>
                     <p>{{::summary.return.journeyDate}}</p>
                 </div>
                 <div class="tripSep"><img src="images/direction.png" alt="To"></div>
                 <div class="tripBox">
-                    <p>{{::summary.return.toCity}}</p>
+                    <p>{{::summary.return.toCity|capitalize}}</p>
                     <p>11:45 PM - 22 Feb, 2016</p>
                 </div>
                 <div class="clearfix"></div>

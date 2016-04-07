@@ -7,7 +7,7 @@
                     <h4>Your Details</h4>
                 </div>
                 <div class="yourdetail-left">
-                    <input class="detials" placeholder="Email Address" type="email" name="email" ng-model="customerDetail.email" ng-required="true" ng-keypress="checkKeyPressed($event)" id="emailInput">
+                    <input class="detials" placeholder="Email Address" type="email" name="email" ng-model="customerDetail.email" ng-required="true" ng-keypress="checkKeyPressed($event)" id="emailInput" ng-model-options="{ debounce: 300 }" >
                      <ul ng-show="detailForm.submitAttempt && !detailForm.$valid">
                         <li ng-show="detailForm.email.$error.required" class="errMsg">Email required</li>
                     </ul>

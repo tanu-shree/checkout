@@ -1225,3 +1225,60 @@ form.submitted .ng-invalid {
         -khtml-opacity: 0.6;
     }
 }
+
+
+.summary-title {
+    width: 100%;
+    float: left;
+    padding-bottom: 15px;
+    h4 {
+        font-size: 1em;
+        padding: 0;
+    }
+    img {
+        float: left;
+        padding-right: 1%;
+        padding-top: 1px;
+    }
+    p {
+        font-size: 0.8125em;
+        padding: 0;
+        color: $color_storm_dust_approx;
+        padding-top: 3px;
+    }
+}
+.block01 {
+    padding-right: 5%;
+    float: left;
+    h4 {
+        font-size: 1em;
+        padding: 0;
+    }
+    p {
+        font-size: 0.8125em;
+        padding: 0;
+        color: #666;
+        line-height: 14px;
+    }
+}
+.summary_policy {
+    width: 100%;
+    float: left;
+    font-size: 0.8125em;
+    padding: 10px 0;
+}
+.summary_includes {
+    width: 100%;
+    float: left;
+    p {
+        padding-bottom: 10px;
+    }
+    ul {
+        list-style: none;
+        li {
+            font-size: 0.8125em;
+            padding: 0 0 10px 4%;
+            background: url(../images/tick.png) no-repeat 0 3px;
+        }
+    }
+}

@@ -56,7 +56,7 @@ angular.module('newappApp')
                     if($scope.summary.mode==checkoutConstant.ROUNDTRIP){
                         $scope.discount +=$scope.summary.return.fareDetails.discountAmount;
                     }
-                     
+                    
                     var compName=$scope.summary.onwards.CompanyName; 
                     var compNameUpper=compName.toUpperCase();
                     $scope.showReliabilty=(compNameUpper!='PUNBUS' &&  $scope.summary.onwards.CompanyId!='10953' && $scope.summary.onwards.CompanyId!='11854');
@@ -73,6 +73,10 @@ angular.module('newappApp')
                     
                 
             });
+            
+            function capitalizeFirstLetter(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
             
         }],
         link: function postLink(scope, element, attrs) {}

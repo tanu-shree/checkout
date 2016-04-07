@@ -7,7 +7,7 @@
  * # creditCardType
  */
 angular.module('newappApp')
-  .directive('creditCardType',['cardConstant', function (cardConstant) {
+  .directive('creditCardType',['cardConstant','$filter', function (cardConstant,$filter) {
     var directive =
         { require: 'ngModel',
          scope: {
@@ -16,25 +16,28 @@ angular.module('newappApp')
             }
         , link: function(scope, elm, attrs, ctrl){
              var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; }
+             
             ctrl.$parsers.unshift(function(value){
                 
-                //scope.ccinfo.type=cardType(value);
-                scope.ccinfotype=cardType(value);
-                ctrl.$setValidity('invalid',validateCardNumber(value));
-                
-               
-                var clean = value;//value.replace( /[^0-9]+/g, '');
-                //var len=(value.replace( /[^0-9]+/g, '')).length;
-                
-                /*if(len%4==0){
-                clean=clean+'-';}*/
-                
-                ctrl.$setViewValue(clean);
-                ctrl.$render();
+                var clean = value.replace( /[^0-9]+/g, '');
+                console.log(clean);
+                scope.ccinfotype=cardType(clean);
+                ctrl.$setValidity('invalid',validateCardNumber(clean));
+                var formated_value="";
+                for(var i=0;i<clean.length;i+=4){
+                    formated_value+=clean.substr(i,4)+" - ";
+                }
+                if (formated_value.length>0){
+                    formated_value=formated_value.substr(0,formated_value.length-3);
+                }
+                elm.val(formated_value);
+                //ctrl.$setViewValue(clean);
+                //ctrl.$render();
                 return clean;
                 
               
-            })
+            });
+            
             
             function  luhnCheck (num) {
                 var digit, digits, odd, sum, _i, _len;
