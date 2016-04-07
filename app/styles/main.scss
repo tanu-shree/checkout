@@ -14,7 +14,6 @@ $color_alto_approx: #ddd;
 $color_mercury_approx: #e1e3e6;
 $white: #fff;
 $color_tapa_approx: #777;
-$mercury: #e5e5e5;
 $color_mine_shaft_approx: #333;
 $color_storm_dust_approx: #666;
 $color_concrete_approx: #f3f3f3;
@@ -22,7 +21,6 @@ $solitude: #eaf6ff;
 $color_eden_approx: #0e6252;
 $color_trinidad_approx: #e94300;
 $color_cornflower_blue_approx: #4a88fe;
-$color_log_cabin_approx: #202020;
 $black_60: rgba(0,0,0,0.6);
 
 //fonts
@@ -259,7 +257,7 @@ body {
 		span {
 			float: left;
 			margin-right: 2%;
-			background: $mercury;
+			background: #e5e5e5;
 			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
 			border-radius: 20px;
 			padding: 9px 13px;
@@ -526,7 +524,7 @@ body {
 		float: left;
 		padding-bottom: 12px;
 		p {
-			color: $color_log_cabin_approx;
+			color: #202020;
 			padding-bottom: 2px;
 			span {
 				color: $color_tapa_approx;
@@ -1203,4 +1201,27 @@ form.submitted .ng-invalid {
 .wallet-popup.ng-hide {
   width:0px;
     height:0px;
+}
+
+.process-wrapper{
+    img {
+        position:absolute;
+        top:40%;
+        left:40%;
+        z-index:4;
+    }
+    .active-screen{
+        width:99999px;
+        height:99999px;
+        background-color: $white;
+        position:fixed;
+        top:0px;
+        left:0px;
+        z-index:3;
+        opacity:0.5;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+        filter: alpha(opacity=60);
+        -moz-opacity: 0.6;
+        -khtml-opacity: 0.6;
+    }
 }

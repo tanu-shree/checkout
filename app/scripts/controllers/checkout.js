@@ -11,6 +11,7 @@
 angular.module('newappApp')
   .controller('CheckoutCtrl', ['$scope', '$location','$rootScope', 'CheckoutService', 'checkoutDetailData','checkoutConstant','FACEBOOK_CONSTANTS', 'GOOGLE_CONSTANTS', function ($scope, $location,$rootScope, CheckoutService,  checkoutDetailData,checkoutConstant,FACEBOOK_CONSTANTS, GOOGLE_CONSTANTS) {
       
+    $scope.processing=true;
     $scope.token='8134bb03f3a22101e53c083939b1f653_8091317_605';
     $scope.tabInfo = false;
     $scope.checkoutDetailsData = checkoutDetailData;
@@ -18,6 +19,7 @@ angular.module('newappApp')
     $scope.isCheckedReliability = true;
     
     CheckoutService.getOrderDetails(8001).then(function (response) {
+        $scope.processing=false;
         checkoutDetailData.details = response.data;
         console.log(checkoutDetailData);
 
