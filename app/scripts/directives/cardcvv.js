@@ -35,7 +35,7 @@ angular.module('newappApp')
                      
             }
         
-        var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; }
+        var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
         
         function validateCardCVV(cvc,type){
              
@@ -43,7 +43,7 @@ angular.module('newappApp')
            // cvc = cvc.trim();
             
             if (type) {
-               return _ref = cvc.length, __indexOf.call((_ref1 = cardFromType(type)) != null ? _ref1.cvcLength : void 0, _ref) >= 0;
+               return _ref = cvc.length, __indexOf.call((_ref1 = cardFromType(type)) !== null ? _ref1.cvcLength : void 0, _ref) >= 0;
                 
             } else {
                 
@@ -58,12 +58,12 @@ angular.module('newappApp')
                 return card;
               }
             }
-          };
+          }
       }
     };
   
       console.log(directive);
-      return directive
+      return directive;
     
   }]);
 

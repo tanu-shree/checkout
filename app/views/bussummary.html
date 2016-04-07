@@ -34,7 +34,7 @@
                             <span>{{::summary.onwards.seats}}</span>
                         </div>
                     </p>
-                    <p><span><a class="blueLink" my-tooltip-template="/views/tooltiptempl.html"  my-tooltip-scope="onwardPickupDetail" my-tooltip-class="onwardTooltip">Pickup Details</a></span></p>
+                    <p><span><a class="blueLink" my-tooltip-template="views/tooltiptempl.html"  my-tooltip-scope="onwardPickupDetail" my-tooltip-class="onwardTooltip">Pickup Details</a></span></p>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                             <span>{{::summary.return.seats}}</span>
                         </div>
                     </p>
-                    <p><span><a class="blueLink" my-tooltip-template="/views/tooltiptempl.html"  my-tooltip-scope="returnPickupDetail" my-tooltip-class="returnTooltip">Pickup Details</a></span></p>
+                    <p><span><a class="blueLink" my-tooltip-template="views/tooltiptempl.html"  my-tooltip-scope="returnPickupDetail" my-tooltip-class="returnTooltip">Pickup Details</a></span></p>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
                     <input type="checkbox" ng-model="isCheckedReliability" ng-checked="true" ng-change="changeReliabilityOption(isCheckedReliability);"/>
                     <label></label>
                 </div>
-                I Want Reliability Service ( <a href my-tooltip-template="/views/tooltiptempl.html"  my-tooltip-scope="reliability" my-tooltip-class="reliabilityToolTip">?</a> )
+                I Want Reliability Service ( <a href my-tooltip-template="views/tooltiptempl.html"  my-tooltip-scope="reliability" my-tooltip-class="reliabilityToolTip">?</a> )
             </div>
             <div class="fareBlock2">Rs. {{::(summary.onwards.fareDetails.insuranceFees + summary.return.fareDetails.insuranceFees)}}</div>
         </div>

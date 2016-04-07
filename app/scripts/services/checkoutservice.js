@@ -7,10 +7,7 @@
  * # checkoutservice
  * Service in the newappApp.
  */
-/*angular.module('newappApp')
-  .service('checkoutservice', function () {
-    // AngularJS will instantiate a singleton by calling "new" on this function
-  });*/
+
 var url = "http://dev.travelyaari.com";
 angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function ($http, $q) {
         var details = {
@@ -37,8 +34,9 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
                 'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
                 'transformRequest': function(obj) {
                     var str = [];
-                    for(var p in obj)
+                    for(var p in obj){
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
                     return str.join("&");
                 }
                 
@@ -84,8 +82,9 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
                 'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
                 'transformRequest': function(obj) {
                     var str = [];
-                    for(var p in obj)
+                    for(var p in obj){
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
                     return str.join("&");
                 }
 
@@ -118,8 +117,9 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
                 'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
                 'transformRequest': function(obj) {
                     var str = [];
-                    for(var p in obj)
+                    for(var p in obj){
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
                     return str.join("&");
                 }
                 
@@ -138,8 +138,9 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
                 'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
                 'transformRequest': function(obj) {
                     var str = [];
-                    for(var p in obj)
+                    for(var p in obj){
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
                     return str.join("&");
                 }
                 
@@ -194,8 +195,9 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
                     'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
                     'transformRequest': function(obj) {
                         var str = [];
-                        for(var p in obj)
+                        for(var p in obj){
                             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        }
                         return str.join("&");
                     }
                 }).then(function (data) {
@@ -214,8 +216,9 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
                     'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
                     'transformRequest': function(obj) {
                         var str = [];
-                        for(var p in obj)
+                        for(var p in obj){
                             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        }
                         return str.join("&");
                     }
                 }).then(function (data) {
@@ -234,8 +237,9 @@ angular.module('newappApp').factory('CheckoutService', ['$http', '$q', function 
                     'headers':{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
                     'transformRequest': function(obj) {
                         var str = [];
-                        for(var p in obj)
+                        for(var p in obj){
                             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        }
                         return str.join("&");
                     }
                 }).then(function (data) {

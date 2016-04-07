@@ -9,7 +9,7 @@
  */
 
 angular.module('newappApp')
-  .controller('CheckoutCtrl', ['$scope', '$location','$rootScope', 'CheckoutService', 'checkoutDetailData','checkoutConstant','FACEBOOK_CONSTANTS', 'GOOGLE_CONSTANTS', function ($scope, $location,$rootScope, CheckoutService,  checkoutDetailData,checkoutConstant,FACEBOOK_CONSTANTS, GOOGLE_CONSTANTS) {
+  .controller('CheckoutCtrl', ['$scope', '$location','$rootScope', 'CheckoutService', 'checkoutDetailData', function ($scope, $location,$rootScope, CheckoutService,  checkoutDetailData) {
       
     $scope.processing=true;
     $scope.token='8134bb03f3a22101e53c083939b1f653_8091317_605';

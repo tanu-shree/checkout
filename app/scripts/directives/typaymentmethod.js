@@ -17,7 +17,7 @@ angular.module('newappApp')
             customerdetail:'=',
             orderid:'='
         },
-        templateUrl: '/views/paymentmethod.html',
+        templateUrl: 'views/paymentmethod.html',
         restrict: 'E',
         controller: ['$scope','$sce','$window','$interval','checkoutConstant','CheckoutService', 'NetBank', 'Wallet','OtherOption','Card', function ($scope,$sce,$window,$interval,checkoutConstant,CheckoutService, NetBank, Wallet,OtherOption,Card) {
     

@@ -9,13 +9,12 @@
 angular.module('newappApp')
   .directive('tyProcessing', function () {
     return {
-      templateUrl: '/views/processing.html',
+      template: '<div class="process-wrapper"><center> <img src="images/spinnerTravelyaari.gif" ng-if="show" /></center><div class="active-screen" ng-if="show"></div></div>',
       scope:{
         show:'='
       },
       restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        
-      }
+      transclude:true,
+      link: function postLink(scope, element, attrs) {}
     };
   });

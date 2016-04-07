@@ -13,7 +13,7 @@ angular.module('newappApp')
         summary:'=',
         discount:'='
       },
-        templateUrl: '/views/bussummary.html',
+        templateUrl: 'views/bussummary.html',
         restrict: 'E',
         controller:['$scope','checkoutConstant', function($scope,checkoutConstant){
             

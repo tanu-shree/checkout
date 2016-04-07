@@ -10,7 +10,7 @@ angular.module('newappApp')
   .directive('tyLogin', function () {
     return {
       
-      templateUrl: '/views/login.html',
+      templateUrl: 'views/login.html',
       restrict: 'E',
       controller: ['$scope','$rootScope','$timeout','checkoutConstant','FACEBOOK_CONSTANTS', 'GOOGLE_CONSTANTS','CheckoutService', function ($scope,$rootScope,$timeout,checkoutConstant,FACEBOOK_CONSTANTS,GOOGLE_CONSTANTS,CheckoutService) {
                  //Login integration

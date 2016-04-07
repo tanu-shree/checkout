@@ -10,7 +10,7 @@ angular.module('newappApp')
   .directive('tyYourDetails', function () {
       return {
         scope:false,
-        templateUrl: '/views/yourdetail.html',
+        templateUrl: 'views/yourdetail.html',
         restrict: 'E',
         controller: ['$scope','CheckoutService',  function ($scope,CheckoutService) {
             $scope.firstSection = true;
