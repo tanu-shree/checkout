@@ -1,6 +1,7 @@
 {
     "jscodehints.detectedExclusions": [
         "/home/rabti/my-new-project/app/scripts/directives/tybookingsummary.js",
-        "/home/rabti/my-new-project/app/scripts/directives/typaymentmethod.js"
+        "/home/rabti/my-new-project/app/scripts/directives/typaymentmethod.js",
+        "/home/rabti/my-new-project/checkout/dist/scripts/scripts.3bba391e.js"
     ]
 }

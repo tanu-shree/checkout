@@ -11,7 +11,7 @@
                      <ul ng-show="detailForm.submitAttempt && !detailForm.$valid">
                         <li ng-show="detailForm.email.$error.required" class="errMsg">Email required</li>
                     </ul>
-                    <input class="detials" placeholder="Apply coupon code here" type="5s6s5s5s5" name="coupon" id="couponInput"  ng-model="customerDetail.coupon" ng-keypress="checkKeyPressed($event)">
+                    <input class="detials" placeholder="Apply coupon code here" type="5s6s5s5s5" name="coupon" id="couponInput"  ng-model="customerDetail.coupon" ng-keypress="checkKeyPressed($event)" required>
                     <label class="coupon-msg" ng-style="customerDetail.discount!=0?{'color':'green'}:{'color':'red'}">{{couponMsg}}</label>
                 </div>
                 <div class="yourdetail-right">

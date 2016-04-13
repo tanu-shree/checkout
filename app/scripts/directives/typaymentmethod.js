@@ -15,7 +15,8 @@ angular.module('newappApp')
             tabinfo:'=',
             token:'=',
             customerdetail:'=',
-            orderid:'='
+            orderid:'=',
+            type:'='
         },
         templateUrl: 'views/paymentmethod.html',
         restrict: 'E',
@@ -198,18 +199,41 @@ angular.module('newappApp')
         
             
             function prepareOffers(){
+                var orderType="";
+                
+                if($scope.type==1){
+                    orderType=checkoutConstant.TYPE_ONE;
+                }
+                else if($scope.type==2){
+                    orderType=checkoutConstant.TYPE_TWO;
+                }
+                else{
+                    orderType=checkoutConstant.TYPE_THREE;
+                }
+                
                 var todayDate=new Date(); 
                 for(var key in $scope.payment.offers.wallet){
                     var data=$scope.payment.offers.wallet[key];
+                    var flagOfferFound=0;
                     for(var i=0;i<data.length;i++){
-                        var validFrom=new Date(data[i].validFrom);
-                        var validTill=new Date(data[i].validTill);
-                        if(todayDate>=validFrom && todayDate<=validTill){
-                            $scope.walletSubtitle[key]=data[i].subtitle;
-                            $scope.walletMsg[key]=data[i].msg;
-                            $scope.walletTnc[key]=data[i].tnc;
+                        var validFor=data[i].validFor;
+                        for(var j=0;j<validFor.length;j++){
+                            if(validFor[j]==orderType){
+                                var validFrom=new Date(data[i].validFrom);
+                                var validTill=new Date(data[i].validTill);
+                                if(todayDate>=validFrom && todayDate<=validTill){
+                                    $scope.walletSubtitle[key]=data[i].subtitle;
+                                    $scope.walletMsg[key]=data[i].msg;
+                                    $scope.walletTnc[key]=data[i].tnc;
+                                    flagOfferFound=1;
+                                }
+                                break;
+                            }
+                        }
+                        if(flagOfferFound==1){
                             break;
                         }
+                        
                     }
                 }
                 console.log("printing wallet msg");
@@ -513,7 +537,7 @@ angular.module('newappApp')
                 CheckoutService.getSavedCards().then(function(response){
                     $scope.SavedCards=response.data;
                     //To be deleted
-                    $scope.SavedCards=[{"card_token":"e97f4671-b15a-4812-b879-3d6da2456157","card_reference":"bbcdac4bcd8e37118eeaa4f17eb36b73","card_number":"4929-XXXXXXXX-9309","card_isin":"492998","card_exp_year":"2018","card_exp_month":"04","card_type":"CREDIT","card_issuer":"BARCLAYS BANK PLC","card_brand":"VISA","nickname":"","name_on_card":"Test","expired":false,"card_fingerprint":"47sc2ipi182a6umkij41gs78b9"},{"card_token":"e97f4671-b15a-4812-b879-3d6da2456158","card_reference":"bbcdac4bcd8e37118eeaa4f17eb36b73","card_number":"4929-XXXXXXXX-9309","card_isin":"492998","card_exp_year":"2018","card_exp_month":"04","card_type":"CREDIT","card_issuer":"BARCLAYS BANK PLC","card_brand":"AMEX","nickname":"","name_on_card":"Test","expired":false,"card_fingerprint":"47sc2ipi182a6umkij41gs78b9"}];
+                    //$scope.SavedCards=[{"card_token":"e97f4671-b15a-4812-b879-3d6da2456157","card_reference":"bbcdac4bcd8e37118eeaa4f17eb36b73","card_number":"4929-XXXXXXXX-9309","card_isin":"492998","card_exp_year":"2018","card_exp_month":"04","card_type":"CREDIT","card_issuer":"BARCLAYS BANK PLC","card_brand":"VISA","nickname":"","name_on_card":"Test","expired":false,"card_fingerprint":"47sc2ipi182a6umkij41gs78b9"},{"card_token":"e97f4671-b15a-4812-b879-3d6da2456158","card_reference":"bbcdac4bcd8e37118eeaa4f17eb36b73","card_number":"4929-XXXXXXXX-9309","card_isin":"492998","card_exp_year":"2018","card_exp_month":"04","card_type":"CREDIT","card_issuer":"BARCLAYS BANK PLC","card_brand":"AMEX","nickname":"","name_on_card":"Test","expired":false,"card_fingerprint":"47sc2ipi182a6umkij41gs78b9"}];
                     //End
                     if(response.data!=""){
                         $scope.showSavedCard=true;

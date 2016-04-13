@@ -7,7 +7,7 @@
  * # creditCardType
  */
 angular.module('newappApp')
-  .directive('creditCardType',['cardConstant','$filter', function (cardConstant,$filter) {
+  .directive('creditCardType',['cardConstant', function (cardConstant) {
     var directive =
         { require: 'ngModel',
          scope: {

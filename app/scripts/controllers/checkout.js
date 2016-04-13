@@ -9,16 +9,17 @@
  */
 
 angular.module('newappApp')
-  .controller('CheckoutCtrl', ['$scope', '$location','$rootScope', 'CheckoutService', 'checkoutDetailData', function ($scope, $location,$rootScope, CheckoutService,  checkoutDetailData) {
+  .controller('CheckoutCtrl', ['$scope','$routeParams', '$location','$rootScope', 'CheckoutService', 'checkoutDetailData', function ($scope,$routeParams, $location,$rootScope, CheckoutService,  checkoutDetailData) {
       
     $scope.processing=true;
     $scope.token='8134bb03f3a22101e53c083939b1f653_8091317_605';
+    //$scope.token=$routeParams.token;
     $scope.tabInfo = false;
     $scope.checkoutDetailsData = checkoutDetailData;
     $scope.customerDetail = {name:null,email:null,mobile:"",coupon:"",discount:0};
     $scope.isCheckedReliability = true;
     
-    CheckoutService.getOrderDetails(8001).then(function (response) {
+    CheckoutService.getOrderDetails($scope.token).then(function (response) {
         $scope.processing=false;
         checkoutDetailData.details = response.data;
         console.log(checkoutDetailData);

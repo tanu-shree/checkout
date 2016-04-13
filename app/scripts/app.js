@@ -20,7 +20,7 @@ angular
   ])
   .config(['$routeProvider','$locationProvider','userauthProvider',function ($routeProvider,$locationProvider,userauthProvider) {
     $routeProvider
-      .when('/', {
+      .when('/:token', {
         templateUrl: 'views/checkout.html',
         controller: 'CheckoutCtrl',
         controllerAs: 'checkout'
